@@ -4,6 +4,8 @@
  */
 package busticketingandreservationsystem;
 
+import view.LoginFrame;
+
 /**
  *
  * @author jayde
@@ -14,7 +16,10 @@ public class BusTicketingAndReservationSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        LoginFrame loginFrame = new LoginFrame();
+        loginFrame.setVisible(true);
+        loginFrame.pack();
+        loginFrame.setLocationRelativeTo(null);
     }
     
 }
