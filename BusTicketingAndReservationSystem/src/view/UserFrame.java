@@ -4,18 +4,33 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+
 /**
  *
  * @author jayde
  */
 public class UserFrame extends javax.swing.JFrame {
-
+    
+    CardLayout cardLayout;
     /**
      * Creates new form UserFrame
      */
     public UserFrame() {
         initComponents();
+    
+        cardLayout = (CardLayout) parentPanel.getLayout();
+
+        cardLayout.show(parentPanel, "homePanel1");
     }
+    
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,56 +41,289 @@ public class UserFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        logo = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        topPanel = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        homeBtn = new javax.swing.JButton();
+        bookingsBtn = new javax.swing.JButton();
+        profileBtn = new javax.swing.JButton();
+        aboutBtn = new javax.swing.JButton();
+        contactBtn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        parentPanel = new javax.swing.JPanel();
+        homePanel1 = new view.HomePanel();
+        homePanel2 = new view.HomePanel();
+        bookingsPanel1 = new view.BookingsPanel();
+        profilePanel1 = new view.ProfilePanel();
+        aboutPanel1 = new view.AboutPanel();
+        contactPanel1 = new view.ContactPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(237, 237, 237));
-        setPreferredSize(new java.awt.Dimension(1200, 820));
+        setBackground(new java.awt.Color(235, 235, 235));
+        setPreferredSize(new java.awt.Dimension(1300, 800));
+        setResizable(false);
+        getContentPane().setLayout(null);
 
-        jButton1.setBackground(new java.awt.Color(36, 106, 112));
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Logout");
-        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        logo.setBackground(new java.awt.Color(235, 235, 235));
+        logo.setLayout(null);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/busflip (1).png"))); // NOI18N
+        jLabel6.setText("Bus");
+        logo.add(jLabel6);
+        jLabel6.setBounds(10, -10, 160, 127);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setText("blablablabla");
+        logo.add(jLabel7);
+        jLabel7.setBounds(100, 70, 80, 16);
+
+        getContentPane().add(logo);
+        logo.setBounds(60, 70, 170, 110);
+
+        topPanel.setBackground(new java.awt.Color(235, 235, 235));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/mobile (1).png"))); // NOI18N
+        jLabel4.setText("+638123012313");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/email (1).png"))); // NOI18N
+        jLabel5.setText("@busgmail.com");
+
+        jSeparator1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        homeBtn.setBackground(new java.awt.Color(235, 235, 235));
+        homeBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 16)); // NOI18N
+        homeBtn.setText("Home");
+        homeBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                homeBtnActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1405, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(266, 266, 266))
+        bookingsBtn.setBackground(new java.awt.Color(235, 235, 235));
+        bookingsBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 16)); // NOI18N
+        bookingsBtn.setText("Bookings");
+        bookingsBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        bookingsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookingsBtnActionPerformed(evt);
+            }
+        });
+
+        profileBtn.setBackground(new java.awt.Color(235, 235, 235));
+        profileBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 16)); // NOI18N
+        profileBtn.setText("Profile");
+        profileBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        profileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileBtnActionPerformed(evt);
+            }
+        });
+
+        aboutBtn.setBackground(new java.awt.Color(235, 235, 235));
+        aboutBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 16)); // NOI18N
+        aboutBtn.setText("About");
+        aboutBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        aboutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutBtnActionPerformed(evt);
+            }
+        });
+
+        contactBtn.setBackground(new java.awt.Color(235, 235, 235));
+        contactBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 16)); // NOI18N
+        contactBtn.setText("Contact");
+        contactBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        contactBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactBtnActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(36, 106, 112));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Logout");
+        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+
+        javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(topPanel);
+        topPanel.setLayout(topPanelLayout);
+        topPanelLayout.setHorizontalGroup(
+            topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(topPanelLayout.createSequentialGroup()
+                .addGap(430, 430, 430)
+                .addComponent(homeBtn)
+                .addGap(47, 47, 47)
+                .addComponent(bookingsBtn)
+                .addGap(41, 41, 41)
+                .addComponent(profileBtn)
+                .addGap(42, 42, 42)
+                .addComponent(aboutBtn)
+                .addGap(40, 40, 40)
+                .addComponent(contactBtn)
+                .addContainerGap(426, Short.MAX_VALUE))
+            .addGroup(topPanelLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(753, Short.MAX_VALUE))
+        topPanelLayout.setVerticalGroup(
+            topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(topPanelLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(homeBtn)
+                    .addComponent(bookingsBtn)
+                    .addComponent(profileBtn)
+                    .addComponent(aboutBtn)
+                    .addComponent(contactBtn))
+                .addContainerGap())
         );
+
+        getContentPane().add(topPanel);
+        topPanel.setBounds(0, 0, 1300, 120);
+
+        parentPanel.setBackground(new java.awt.Color(235, 235, 235));
+        parentPanel.setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout homePanel1Layout = new javax.swing.GroupLayout(homePanel1);
+        homePanel1.setLayout(homePanel1Layout);
+        homePanel1Layout.setHorizontalGroup(
+            homePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(homePanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        homePanel1Layout.setVerticalGroup(
+            homePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(homePanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        parentPanel.add(homePanel1, "homePanel1");
+
+        javax.swing.GroupLayout bookingsPanel1Layout = new javax.swing.GroupLayout(bookingsPanel1);
+        bookingsPanel1.setLayout(bookingsPanel1Layout);
+        bookingsPanel1Layout.setHorizontalGroup(
+            bookingsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1300, Short.MAX_VALUE)
+        );
+        bookingsPanel1Layout.setVerticalGroup(
+            bookingsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
+        );
+
+        parentPanel.add(bookingsPanel1, "bookingsPanel1");
+
+        javax.swing.GroupLayout profilePanel1Layout = new javax.swing.GroupLayout(profilePanel1);
+        profilePanel1.setLayout(profilePanel1Layout);
+        profilePanel1Layout.setHorizontalGroup(
+            profilePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1300, Short.MAX_VALUE)
+        );
+        profilePanel1Layout.setVerticalGroup(
+            profilePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
+        );
+
+        parentPanel.add(profilePanel1, "profilePanel1");
+
+        javax.swing.GroupLayout aboutPanel1Layout = new javax.swing.GroupLayout(aboutPanel1);
+        aboutPanel1.setLayout(aboutPanel1Layout);
+        aboutPanel1Layout.setHorizontalGroup(
+            aboutPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1300, Short.MAX_VALUE)
+        );
+        aboutPanel1Layout.setVerticalGroup(
+            aboutPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
+        );
+
+        parentPanel.add(aboutPanel1, "aboutPanel1");
+
+        contactPanel1.setBackground(new java.awt.Color(235, 235, 235));
+
+        javax.swing.GroupLayout contactPanel1Layout = new javax.swing.GroupLayout(contactPanel1);
+        contactPanel1.setLayout(contactPanel1Layout);
+        contactPanel1Layout.setHorizontalGroup(
+            contactPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1300, Short.MAX_VALUE)
+        );
+        contactPanel1Layout.setVerticalGroup(
+            contactPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
+        );
+
+        parentPanel.add(contactPanel1, "contactPanel1");
+
+        getContentPane().add(parentPanel);
+        parentPanel.setBounds(0, 120, 1300, 550);
+
+        jPanel2.setBackground(new java.awt.Color(234, 234, 234));
+        jPanel2.setLayout(null);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/builddnogbg.png"))); // NOI18N
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(940, 20, 360, 90);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/builddnogbgflip.png"))); // NOI18N
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(470, 20, 531, 90);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/builddnogbg.png"))); // NOI18N
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(0, 20, 527, 90);
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 660, 1300, 120);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        LoginFrame loginFrame = new LoginFrame();
-        loginFrame.setVisible(true);
-        loginFrame.pack();
-        loginFrame.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+
+        cardLayout.show(parentPanel, "homePanel1");
+    }//GEN-LAST:event_homeBtnActionPerformed
+
+    private void bookingsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingsBtnActionPerformed
+        cardLayout.show(parentPanel, "bookingsPanel1");
+    }//GEN-LAST:event_bookingsBtnActionPerformed
+
+    private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
+        cardLayout.show(parentPanel, "profilePanel1");
+    }//GEN-LAST:event_profileBtnActionPerformed
+
+    private void contactBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactBtnActionPerformed
+        cardLayout.show(parentPanel, "contactPanel1");
+    }//GEN-LAST:event_contactBtnActionPerformed
+
+    private void aboutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutBtnActionPerformed
+        cardLayout.show(parentPanel, "aboutPanel1");
+    }//GEN-LAST:event_aboutBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,7 +361,29 @@ public class UserFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton aboutBtn;
+    private view.AboutPanel aboutPanel1;
+    private javax.swing.JButton bookingsBtn;
+    private view.BookingsPanel bookingsPanel1;
+    private javax.swing.JButton contactBtn;
+    private view.ContactPanel contactPanel1;
+    private javax.swing.JButton homeBtn;
+    private view.HomePanel homePanel1;
+    private view.HomePanel homePanel2;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel logo;
+    private javax.swing.JPanel parentPanel;
+    private javax.swing.JButton profileBtn;
+    private view.ProfilePanel profilePanel1;
+    private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables
 }
