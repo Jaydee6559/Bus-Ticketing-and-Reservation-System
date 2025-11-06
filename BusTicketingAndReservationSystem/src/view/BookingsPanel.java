@@ -26,42 +26,792 @@ public class BookingsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jDialog1 = new javax.swing.JDialog();
+        jLabel18 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jSpinner1 = new javax.swing.JSpinner();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        BookingItemContainerPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollBar1 = new javax.swing.JScrollBar();
+        BookingItemPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        FilterPanel = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel15 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jButton3 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jCheckBox12 = new javax.swing.JCheckBox();
+        jCheckBox21 = new javax.swing.JCheckBox();
+        jCheckBox22 = new javax.swing.JCheckBox();
+        jCheckBox23 = new javax.swing.JCheckBox();
+        jCheckBox24 = new javax.swing.JCheckBox();
+        jCheckBox25 = new javax.swing.JCheckBox();
+        jCheckBox26 = new javax.swing.JCheckBox();
+        jCheckBox27 = new javax.swing.JCheckBox();
+        jCheckBox28 = new javax.swing.JCheckBox();
+        jCheckBox29 = new javax.swing.JCheckBox();
+        jCheckBox30 = new javax.swing.JCheckBox();
+        jCheckBox31 = new javax.swing.JCheckBox();
+        jCheckBox32 = new javax.swing.JCheckBox();
+        jCheckBox33 = new javax.swing.JCheckBox();
+        jCheckBox34 = new javax.swing.JCheckBox();
+        jCheckBox35 = new javax.swing.JCheckBox();
+        jCheckBox36 = new javax.swing.JCheckBox();
+        jCheckBox37 = new javax.swing.JCheckBox();
+        jCheckBox38 = new javax.swing.JCheckBox();
+        jCheckBox39 = new javax.swing.JCheckBox();
+        jPanel2 = new javax.swing.JPanel();
+        searchText = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 31)); // NOI18N
+        jLabel18.setText("Book For How Many Persons?");
+
+        jButton5.setBackground(new java.awt.Color(224, 234, 235));
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(0, 0, 0));
+        jButton5.setText("1");
+        jButton5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        jButton9.setBackground(new java.awt.Color(224, 234, 235));
+        jButton9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(0, 0, 0));
+        jButton9.setText("Other");
+        jButton9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jButton10.setBackground(new java.awt.Color(224, 234, 235));
+        jButton10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(0, 0, 0));
+        jButton10.setText("2");
+        jButton10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        jButton11.setBackground(new java.awt.Color(224, 234, 235));
+        jButton11.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(0, 0, 0));
+        jButton11.setText("3");
+        jButton11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        jButton12.setBackground(new java.awt.Color(224, 234, 235));
+        jButton12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButton12.setForeground(new java.awt.Color(0, 0, 0));
+        jButton12.setText("4");
+        jButton12.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        jButton13.setBackground(new java.awt.Color(224, 234, 235));
+        jButton13.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButton13.setForeground(new java.awt.Color(0, 0, 0));
+        jButton13.setText("5");
+        jButton13.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        jButton14.setBackground(new java.awt.Color(36, 106, 112));
+        jButton14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton14.setForeground(new java.awt.Color(255, 255, 255));
+        jButton14.setText("CONFIRM");
+        jButton14.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jDialog1Layout.createSequentialGroup()
+                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDialog1Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGap(201, 201, 201)
+                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel18)))
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel18)
+                .addGap(39, 39, 39)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
 
         setBackground(new java.awt.Color(235, 235, 235));
         setPreferredSize(new java.awt.Dimension(1300, 719));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 785, Short.MAX_VALUE)
+        BookingItemContainerPanel.setBackground(new java.awt.Color(224, 234, 235));
+        BookingItemContainerPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Available Bookings");
+
+        BookingItemPanel.setBackground(new java.awt.Color(252, 252, 252));
+        BookingItemPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), new javax.swing.border.LineBorder(new java.awt.Color(224, 234, 235), 7, true)));
+        BookingItemPanel.setLayout(null);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("CUBAO");
+        BookingItemPanel.add(jLabel2);
+        jLabel2.setBounds(30, 40, 90, 20);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("PASAY CITY");
+        BookingItemPanel.add(jLabel3);
+        jLabel3.setBounds(210, 40, 65, 20);
+
+        jButton1.setBackground(new java.awt.Color(36, 106, 112));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("BOOK NOW");
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        BookingItemPanel.add(jButton1);
+        jButton1.setBounds(710, 80, 100, 29);
+
+        jLabel4.setText("Available Seats:");
+        BookingItemPanel.add(jLabel4);
+        jLabel4.setBounds(400, 100, 90, 16);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("11/23/2025");
+        BookingItemPanel.add(jLabel5);
+        jLabel5.setBounds(410, 20, 80, 20);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setText("12:00 AM");
+        BookingItemPanel.add(jLabel6);
+        jLabel6.setBounds(340, 60, 70, 20);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setText("12:00 AM");
+        BookingItemPanel.add(jLabel7);
+        jLabel7.setBounds(500, 60, 70, 20);
+
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setForeground(new java.awt.Color(51, 255, 51));
+        jLabel8.setText("5");
+        BookingItemPanel.add(jLabel8);
+        jLabel8.setBounds(490, 100, 10, 16);
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/right-arrow.png"))); // NOI18N
+        BookingItemPanel.add(jLabel9);
+        jLabel9.setBounds(440, 60, 30, 20);
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/right-arrow.png"))); // NOI18N
+        BookingItemPanel.add(jLabel10);
+        jLabel10.setBounds(130, 40, 30, 20);
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel11.setText("1000");
+        BookingItemPanel.add(jLabel11);
+        jLabel11.setBounds(740, 30, 50, 30);
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel12.setText("₱");
+        BookingItemPanel.add(jLabel12);
+        jLabel12.setBounds(730, 30, 20, 30);
+
+        jButton2.setBackground(new java.awt.Color(36, 106, 112));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("CLASSIC BUS");
+        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        BookingItemPanel.add(jButton2);
+        jButton2.setBounds(90, 90, 110, 29);
+
+        javax.swing.GroupLayout BookingItemContainerPanelLayout = new javax.swing.GroupLayout(BookingItemContainerPanel);
+        BookingItemContainerPanel.setLayout(BookingItemContainerPanelLayout);
+        BookingItemContainerPanelLayout.setHorizontalGroup(
+            BookingItemContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BookingItemContainerPanelLayout.createSequentialGroup()
+                .addGroup(BookingItemContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BookingItemContainerPanelLayout.createSequentialGroup()
+                        .addGap(327, 327, 327)
+                        .addComponent(jLabel1))
+                    .addGroup(BookingItemContainerPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(BookingItemPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 461, Short.MAX_VALUE)
+        BookingItemContainerPanelLayout.setVerticalGroup(
+            BookingItemContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BookingItemContainerPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
+                .addComponent(BookingItemPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookingItemContainerPanelLayout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
+        );
+
+        FilterPanel.setBackground(new java.awt.Color(224, 234, 235));
+        FilterPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        FilterPanel.setLayout(null);
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel13.setText("Filter");
+        FilterPanel.add(jLabel13);
+        jLabel13.setBounds(30, 0, 90, 50);
+        FilterPanel.add(jSeparator1);
+        jSeparator1.setBounds(0, 50, 300, 10);
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("Stations");
+        FilterPanel.add(jLabel15);
+        jLabel15.setBounds(30, 170, 90, 20);
+        FilterPanel.add(jSeparator2);
+        jSeparator2.setBounds(0, 150, 340, 10);
+
+        jButton3.setBackground(new java.awt.Color(224, 234, 235));
+        jButton3.setForeground(new java.awt.Color(153, 153, 153));
+        jButton3.setText("Reset All");
+        jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        FilterPanel.add(jButton3);
+        jButton3.setBounds(170, 10, 70, 30);
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Bus Type");
+        FilterPanel.add(jLabel16);
+        jLabel16.setBounds(30, 60, 90, 30);
+
+        jRadioButton3.setBackground(new java.awt.Color(224, 234, 235));
+        jRadioButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jRadioButton3.setText("Premium");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jRadioButton3);
+        jRadioButton3.setBounds(30, 120, 91, 20);
+
+        jRadioButton4.setBackground(new java.awt.Color(224, 234, 235));
+        jRadioButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jRadioButton4.setText("Classic");
+        FilterPanel.add(jRadioButton4);
+        jRadioButton4.setBounds(30, 100, 91, 20);
+
+        jCheckBox12.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox12.setText("Taguig BGC");
+        jCheckBox12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox12ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox12);
+        jCheckBox12.setBounds(30, 390, 100, 20);
+
+        jCheckBox21.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox21.setText("Cubao");
+        jCheckBox21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox21ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox21);
+        jCheckBox21.setBounds(30, 210, 86, 20);
+
+        jCheckBox22.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox22.setText("Pasig ");
+        jCheckBox22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox22ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox22);
+        jCheckBox22.setBounds(30, 230, 86, 20);
+
+        jCheckBox23.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox23.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox23.setText("Makati");
+        jCheckBox23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox23ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox23);
+        jCheckBox23.setBounds(30, 250, 86, 20);
+
+        jCheckBox24.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox24.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox24.setText("Manila");
+        jCheckBox24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox24ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox24);
+        jCheckBox24.setBounds(30, 270, 86, 20);
+
+        jCheckBox25.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox25.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox25.setText("Mandaluyong");
+        jCheckBox25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox25ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox25);
+        jCheckBox25.setBounds(30, 290, 100, 20);
+
+        jCheckBox26.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox26.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox26.setText("Marikina");
+        jCheckBox26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox26ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox26);
+        jCheckBox26.setBounds(30, 310, 86, 20);
+
+        jCheckBox27.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox27.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox27.setText("San Juan");
+        jCheckBox27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox27ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox27);
+        jCheckBox27.setBounds(30, 330, 86, 20);
+
+        jCheckBox28.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox28.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox28.setText("Caloocan");
+        jCheckBox28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox28ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox28);
+        jCheckBox28.setBounds(30, 350, 86, 20);
+
+        jCheckBox29.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox29.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox29.setText("Quezon Ave");
+        jCheckBox29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox29ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox29);
+        jCheckBox29.setBounds(30, 370, 100, 20);
+
+        jCheckBox30.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox30.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox30.setText("Balanga");
+        jCheckBox30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox30ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox30);
+        jCheckBox30.setBounds(150, 390, 86, 20);
+
+        jCheckBox31.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox31.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox31.setText("Cabanatuan ");
+        jCheckBox31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox31ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox31);
+        jCheckBox31.setBounds(150, 210, 100, 20);
+
+        jCheckBox32.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox32.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox32.setText("Baler, Aurora");
+        jCheckBox32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox32ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox32);
+        jCheckBox32.setBounds(150, 230, 100, 20);
+
+        jCheckBox33.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox33.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox33.setText("Lucena");
+        jCheckBox33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox33ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox33);
+        jCheckBox33.setBounds(150, 250, 86, 20);
+
+        jCheckBox34.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox34.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox34.setText("Batangas");
+        jCheckBox34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox34ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox34);
+        jCheckBox34.setBounds(150, 270, 86, 20);
+
+        jCheckBox35.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox35.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox35.setText("Lipa");
+        jCheckBox35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox35ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox35);
+        jCheckBox35.setBounds(150, 290, 86, 20);
+
+        jCheckBox36.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox36.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox36.setText("Tarlac");
+        jCheckBox36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox36ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox36);
+        jCheckBox36.setBounds(150, 310, 86, 20);
+
+        jCheckBox37.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox37.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox37.setText("Bulacan");
+        jCheckBox37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox37ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox37);
+        jCheckBox37.setBounds(150, 330, 86, 20);
+
+        jCheckBox38.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox38.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox38.setText("Dagupan");
+        jCheckBox38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox38ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox38);
+        jCheckBox38.setBounds(150, 350, 86, 20);
+
+        jCheckBox39.setBackground(new java.awt.Color(224, 234, 235));
+        jCheckBox39.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox39.setText("Olongapo");
+        jCheckBox39.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox39ActionPerformed(evt);
+            }
+        });
+        FilterPanel.add(jCheckBox39);
+        jCheckBox39.setBounds(150, 370, 86, 20);
+
+        jPanel2.setBackground(new java.awt.Color(224, 234, 235));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        searchText.setText("Search");
+        searchText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTextActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/refresh.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel14))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(393, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(122, 122, 122))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FilterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BookingItemContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(115, 115, 115)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(FilterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BookingItemContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jCheckBox12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox12ActionPerformed
+
+    private void jCheckBox21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox21ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox21ActionPerformed
+
+    private void jCheckBox22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox22ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox22ActionPerformed
+
+    private void jCheckBox23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox23ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox23ActionPerformed
+
+    private void jCheckBox24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox24ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox24ActionPerformed
+
+    private void jCheckBox25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox25ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox25ActionPerformed
+
+    private void jCheckBox26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox26ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox26ActionPerformed
+
+    private void jCheckBox27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox27ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox27ActionPerformed
+
+    private void jCheckBox28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox28ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox28ActionPerformed
+
+    private void jCheckBox29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox29ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox29ActionPerformed
+
+    private void jCheckBox30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox30ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox30ActionPerformed
+
+    private void jCheckBox31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox31ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox31ActionPerformed
+
+    private void jCheckBox32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox32ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox32ActionPerformed
+
+    private void jCheckBox33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox33ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox33ActionPerformed
+
+    private void jCheckBox34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox34ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox34ActionPerformed
+
+    private void jCheckBox35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox35ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox35ActionPerformed
+
+    private void jCheckBox36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox36ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox36ActionPerformed
+
+    private void jCheckBox37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox37ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox37ActionPerformed
+
+    private void jCheckBox38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox38ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox38ActionPerformed
+
+    private void jCheckBox39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox39ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox39ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void searchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchTextActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel BookingItemContainerPanel;
+    private javax.swing.JPanel BookingItemPanel;
+    private javax.swing.JPanel FilterPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JCheckBox jCheckBox12;
+    private javax.swing.JCheckBox jCheckBox21;
+    private javax.swing.JCheckBox jCheckBox22;
+    private javax.swing.JCheckBox jCheckBox23;
+    private javax.swing.JCheckBox jCheckBox24;
+    private javax.swing.JCheckBox jCheckBox25;
+    private javax.swing.JCheckBox jCheckBox26;
+    private javax.swing.JCheckBox jCheckBox27;
+    private javax.swing.JCheckBox jCheckBox28;
+    private javax.swing.JCheckBox jCheckBox29;
+    private javax.swing.JCheckBox jCheckBox30;
+    private javax.swing.JCheckBox jCheckBox31;
+    private javax.swing.JCheckBox jCheckBox32;
+    private javax.swing.JCheckBox jCheckBox33;
+    private javax.swing.JCheckBox jCheckBox34;
+    private javax.swing.JCheckBox jCheckBox35;
+    private javax.swing.JCheckBox jCheckBox36;
+    private javax.swing.JCheckBox jCheckBox37;
+    private javax.swing.JCheckBox jCheckBox38;
+    private javax.swing.JCheckBox jCheckBox39;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JTextField searchText;
     // End of variables declaration//GEN-END:variables
 }

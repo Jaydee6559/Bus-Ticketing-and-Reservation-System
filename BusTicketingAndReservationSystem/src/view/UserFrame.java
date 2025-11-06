@@ -41,9 +41,6 @@ public class UserFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        logo = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         topPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -58,6 +55,7 @@ public class UserFrame extends javax.swing.JFrame {
         homePanel1 = new view.HomePanel();
         homePanel2 = new view.HomePanel();
         bookingsPanel1 = new view.BookingsPanel();
+        bookingsPanel2 = new view.BookingsPanel();
         profilePanel1 = new view.ProfilePanel();
         aboutPanel1 = new view.AboutPanel();
         contactPanel1 = new view.ContactPanel();
@@ -71,23 +69,6 @@ public class UserFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1300, 800));
         setResizable(false);
         getContentPane().setLayout(null);
-
-        logo.setBackground(new java.awt.Color(235, 235, 235));
-        logo.setLayout(null);
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/busflip (1).png"))); // NOI18N
-        jLabel6.setText("Bus");
-        logo.add(jLabel6);
-        jLabel6.setBounds(10, -10, 160, 127);
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setText("blablablabla");
-        logo.add(jLabel7);
-        jLabel7.setBounds(100, 70, 80, 16);
-
-        getContentPane().add(logo);
-        logo.setBounds(60, 70, 170, 110);
 
         topPanel.setBackground(new java.awt.Color(235, 235, 235));
 
@@ -230,11 +211,16 @@ public class UserFrame extends javax.swing.JFrame {
         bookingsPanel1.setLayout(bookingsPanel1Layout);
         bookingsPanel1Layout.setHorizontalGroup(
             bookingsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bookingsPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(bookingsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         bookingsPanel1Layout.setVerticalGroup(
             bookingsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bookingsPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bookingsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         parentPanel.add(bookingsPanel1, "bookingsPanel1");
@@ -365,6 +351,7 @@ public class UserFrame extends javax.swing.JFrame {
     private view.AboutPanel aboutPanel1;
     private javax.swing.JButton bookingsBtn;
     private view.BookingsPanel bookingsPanel1;
+    private view.BookingsPanel bookingsPanel2;
     private javax.swing.JButton contactBtn;
     private view.ContactPanel contactPanel1;
     private javax.swing.JButton homeBtn;
@@ -376,11 +363,8 @@ public class UserFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel logo;
     private javax.swing.JPanel parentPanel;
     private javax.swing.JButton profileBtn;
     private view.ProfilePanel profilePanel1;
