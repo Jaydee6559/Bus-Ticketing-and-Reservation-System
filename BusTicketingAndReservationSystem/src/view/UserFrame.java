@@ -59,6 +59,8 @@ public class UserFrame extends javax.swing.JFrame {
         profilePanel1 = new view.ProfilePanel();
         aboutPanel1 = new view.AboutPanel();
         contactPanel1 = new view.ContactPanel();
+        bookingInfo1 = new view.BookingInfo();
+        bookingInfo2 = new view.BookingInfo();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -196,7 +198,8 @@ public class UserFrame extends javax.swing.JFrame {
             homePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(homePanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(homePanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1312, 1312, 1312))
         );
         homePanel1Layout.setVerticalGroup(
             homePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +236,7 @@ public class UserFrame extends javax.swing.JFrame {
         );
         profilePanel1Layout.setVerticalGroup(
             profilePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGap(0, 719, Short.MAX_VALUE)
         );
 
         parentPanel.add(profilePanel1, "profilePanel1");
@@ -246,7 +249,7 @@ public class UserFrame extends javax.swing.JFrame {
         );
         aboutPanel1Layout.setVerticalGroup(
             aboutPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGap(0, 719, Short.MAX_VALUE)
         );
 
         parentPanel.add(aboutPanel1, "aboutPanel1");
@@ -261,10 +264,38 @@ public class UserFrame extends javax.swing.JFrame {
         );
         contactPanel1Layout.setVerticalGroup(
             contactPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGap(0, 719, Short.MAX_VALUE)
         );
 
         parentPanel.add(contactPanel1, "contactPanel1");
+
+        javax.swing.GroupLayout bookingInfo2Layout = new javax.swing.GroupLayout(bookingInfo2);
+        bookingInfo2.setLayout(bookingInfo2Layout);
+        bookingInfo2Layout.setHorizontalGroup(
+            bookingInfo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1300, Short.MAX_VALUE)
+        );
+        bookingInfo2Layout.setVerticalGroup(
+            bookingInfo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 719, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout bookingInfo1Layout = new javax.swing.GroupLayout(bookingInfo1);
+        bookingInfo1.setLayout(bookingInfo1Layout);
+        bookingInfo1Layout.setHorizontalGroup(
+            bookingInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bookingInfo1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(bookingInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        bookingInfo1Layout.setVerticalGroup(
+            bookingInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bookingInfo1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(bookingInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        parentPanel.add(bookingInfo1, "card7");
 
         getContentPane().add(parentPanel);
         parentPanel.setBounds(0, 120, 1300, 550);
@@ -349,6 +380,8 @@ public class UserFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aboutBtn;
     private view.AboutPanel aboutPanel1;
+    private view.BookingInfo bookingInfo1;
+    private view.BookingInfo bookingInfo2;
     private javax.swing.JButton bookingsBtn;
     private view.BookingsPanel bookingsPanel1;
     private view.BookingsPanel bookingsPanel2;
