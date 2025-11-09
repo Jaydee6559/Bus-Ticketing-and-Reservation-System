@@ -5,6 +5,12 @@
 package view;
 
 
+import controller.AuthController;
+import javax.swing.JOptionPane;
+
+import model.User;
+
+
 /**
  *
  * @author jayde
@@ -190,11 +196,41 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        UserFrame userFrame = new UserFrame();
-        userFrame.setVisible(true);
-        userFrame.pack();
-        userFrame.setLocationRelativeTo(null);
-        this.dispose();        
+        String email = jTextField1.getText();
+    String password = new String(jPasswordField1.getPassword());
+    String userType = jComboBox1.getSelectedItem().toString().toLowerCase();
+    
+    // USE CONTROLLER for login!
+    AuthController authController = new AuthController();
+    User user = authController.loginUser(email, password, userType);
+    
+    if (user != null) {
+        if (user.isVerified()) {
+            JOptionPane.showMessageDialog(this, "Login successful!");
+            if ("admin".equals(userType)) {
+                // Open admin frame
+                // AdminFrame adminFrame = new AdminFrame(user);
+                // adminFrame.setVisible(true);
+                JOptionPane.showMessageDialog(this, "Admin dashboard would open here");
+            } else {
+
+                // UserFrame userFrame = new UserFrame(user);
+                // userFrame.setVisible(true);
+                UserFrame userFrame = new UserFrame(user);
+                userFrame.setVisible(true);
+                userFrame.pack(); // Optional, makes sure the window sizes correctly
+                userFrame.setLocationRelativeTo(null); // Centers the window
+                this.dispose(); // Closes LoginFrame
+            }
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Please verify your email first. Check your email for OTP.");
+            OTPVerificationFrame otpFrame = new OTPVerificationFrame(email);
+            otpFrame.setVisible(true);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid email or password");
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

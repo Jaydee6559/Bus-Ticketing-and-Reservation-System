@@ -4,6 +4,8 @@
  */
 package view;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author jayde
@@ -15,7 +17,6 @@ public class HomePanel extends javax.swing.JPanel {
      */
     public HomePanel() {
         initComponents();
-        System.out.println("HomePanel constructor called");  // Debug output
 
     }
 
@@ -58,7 +59,7 @@ public class HomePanel extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(224, 234, 235));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cubao", "Pasig", "Makati", "Manila, ", "Mandaluyong", "Marikina", "San Juan", "Caloocan", "Quezon Ave", "Taguig BGC", "Cabanatuan", "Baler", "Aurora", "Lucena", "Batangas", "Lipa", "Tarlac", "Bulacan", "Dagupan", "Olongapo", "Balanga" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -158,7 +159,15 @@ public class HomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        java.awt.Container parent = getParent();
+    
+        if (parent != null && parent.getParent() != null) {
+            java.awt.Container grandParent = parent.getParent();
+            if (grandParent.getLayout() instanceof CardLayout) {
+                CardLayout cardLayout = (CardLayout) grandParent.getLayout();
+                cardLayout.show(grandParent, "bookingsPanel1");
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

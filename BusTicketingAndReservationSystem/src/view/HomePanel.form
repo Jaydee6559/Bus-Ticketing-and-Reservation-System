@@ -145,11 +145,28 @@
         <Component class="javax.swing.JComboBox" name="jComboBox1">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="21">
+                <StringItem index="0" value="Cubao"/>
+                <StringItem index="1" value="Pasig"/>
+                <StringItem index="2" value="Makati"/>
+                <StringItem index="3" value="Manila, "/>
+                <StringItem index="4" value="Mandaluyong"/>
+                <StringItem index="5" value="Marikina"/>
+                <StringItem index="6" value="San Juan"/>
+                <StringItem index="7" value="Caloocan"/>
+                <StringItem index="8" value="Quezon Ave"/>
+                <StringItem index="9" value="Taguig BGC"/>
+                <StringItem index="10" value="Cabanatuan"/>
+                <StringItem index="11" value="Baler"/>
+                <StringItem index="12" value="Aurora"/>
+                <StringItem index="13" value="Lucena"/>
+                <StringItem index="14" value="Batangas"/>
+                <StringItem index="15" value="Lipa"/>
+                <StringItem index="16" value="Tarlac"/>
+                <StringItem index="17" value="Bulacan"/>
+                <StringItem index="18" value="Dagupan"/>
+                <StringItem index="19" value="Olongapo"/>
+                <StringItem index="20" value="Balanga"/>
               </StringArray>
             </Property>
           </Properties>
