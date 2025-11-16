@@ -224,12 +224,13 @@ public class UserFrame extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/email (1).png"))); // NOI18N
         jLabel5.setText("@tipbusgmail.com");
 
-        jSeparator1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jSeparator1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         homeBtn.setBackground(new java.awt.Color(235, 235, 235));
         homeBtn.setFont(new java.awt.Font("Segoe UI Semibold", 0, 16)); // NOI18N
         homeBtn.setText("Home");
         homeBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        homeBtn.setBorderPainted(false);
         homeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 homeBtnActionPerformed(evt);
@@ -393,8 +394,6 @@ public class UserFrame extends javax.swing.JFrame {
         );
 
         parentPanel.add(aboutPanel1, "aboutPanel1");
-
-        contactPanel1.setBackground(new java.awt.Color(235, 235, 235));
 
         javax.swing.GroupLayout contactPanel1Layout = new javax.swing.GroupLayout(contactPanel1);
         contactPanel1.setLayout(contactPanel1Layout);

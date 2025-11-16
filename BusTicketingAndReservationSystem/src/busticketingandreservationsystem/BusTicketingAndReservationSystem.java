@@ -4,6 +4,7 @@
  */
 package busticketingandreservationsystem;
 
+import javax.swing.UIManager;
 import view.LoginFrame;
 
 /**
@@ -12,14 +13,27 @@ import view.LoginFrame;
  */
 public class BusTicketingAndReservationSystem {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
+
+        setModernLookAndFeel();
+        
         LoginFrame loginFrame = new LoginFrame();
         loginFrame.setVisible(true);
         loginFrame.pack();
         loginFrame.setLocationRelativeTo(null);
     }
     
+    private static void setModernLookAndFeel() {
+        try {
+
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
+
+            try {
+                UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }
