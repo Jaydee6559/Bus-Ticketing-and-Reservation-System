@@ -1,19 +1,374 @@
 
 package view;
 
+import controller.BookingsController;
+import dao.BookingDAO;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import model.Booking;
+import model.Schedule;
+
 
 
 public class BookingsPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form BookingsPanel
-     */
-    public BookingsPanel() {
+        private BookingsController controller;
+        private DefaultTableModel tableModel;
+
+        public BookingsPanel() {
         initComponents();
+        initializePanel();
         
     }
    
+     private void initializePanel() {
+        // Initialize controller
+        this.controller = new BookingsController(this);
+        
+        // Setup table model
+        tableModel = (DefaultTableModel) scheduleTable.getModel();
+        
+        // Setup event listeners
+        setupEventListeners();
+        
+        // Load initial data
+        loadInitialData();
+        
+        // Hide schedule ID column
+        hideScheduleIdColumn();
+    }
+    public void setFilterData(List<String> stations, java.sql.Date date, String busType) {
+        System.out.println("=== DEBUG: Setting filter data ===");
+        System.out.println("Stations: " + stations);
+        System.out.println("Date: " + date);
+        System.out.println("Bus Type: " + busType);
 
+        // Set station checkboxes based on the provided stations
+        if (stations != null && !stations.isEmpty()) {
+            setStationCheckboxes(stations);
+        }
+
+        // Set bus type radio button if provided
+        if (busType != null && !busType.isEmpty()) {
+            if ("Premium".equals(busType)) {
+                jRadioButton3.setSelected(true);
+            } else if ("Classic".equals(busType)) {
+                jRadioButton4.setSelected(true);
+            }
+        }
+
+        // Apply the filter to refresh the schedules
+        if (date != null) {
+            // Use the date+station filter
+            System.out.println("Calling date+station filter with date: " + date);
+            controller.loadFilteredSchedulesByDateAndStation(busType, stations, date);
+        } else {
+            // Use regular filter
+            System.out.println("Calling regular filter");
+            controller.loadFilteredSchedules(busType, stations);
+        }
+    }
+
+    private void setStationCheckboxes(List<String> stations) {
+        // Clear all station checkboxes first
+        JCheckBox[] stationCheckboxes = {
+            jCheckBox12, jCheckBox21, jCheckBox22, jCheckBox23, jCheckBox24,
+            jCheckBox25, jCheckBox26, jCheckBox27, jCheckBox28, jCheckBox29,
+            jCheckBox30, jCheckBox31, jCheckBox32, jCheckBox33, jCheckBox34,
+            jCheckBox35, jCheckBox36, jCheckBox37, jCheckBox38, jCheckBox39
+        };
+
+        for (JCheckBox checkBox : stationCheckboxes) {
+            checkBox.setSelected(false);
+        }
+
+        // Set the selected stations
+        for (String station : stations) {
+            switch (station) {
+                case "Taguig BGC": jCheckBox12.setSelected(true); break;
+                case "Cubao": jCheckBox21.setSelected(true); break;
+                case "Pasig": jCheckBox22.setSelected(true); break;
+                case "Makati": jCheckBox23.setSelected(true); break;
+                case "Manila": jCheckBox24.setSelected(true); break;
+                case "Mandaluyong": jCheckBox25.setSelected(true); break;
+                case "Marikina": jCheckBox26.setSelected(true); break;
+                case "San Juan": jCheckBox27.setSelected(true); break;
+                case "Caloocan": jCheckBox28.setSelected(true); break;
+                case "Quezon Ave": jCheckBox29.setSelected(true); break;
+                case "Balanga": jCheckBox30.setSelected(true); break;
+                case "Cabanatuan": jCheckBox31.setSelected(true); break;
+                case "Baler, Aurora": jCheckBox32.setSelected(true); break;
+                case "Lucena": jCheckBox33.setSelected(true); break;
+                case "Batangas": jCheckBox34.setSelected(true); break;
+                case "Lipa": jCheckBox35.setSelected(true); break;
+                case "Tarlac": jCheckBox36.setSelected(true); break;
+                case "Bulacan": jCheckBox37.setSelected(true); break;
+                case "Dagupan": jCheckBox38.setSelected(true); break;
+                case "Olongapo": jCheckBox39.setSelected(true); break;
+            }
+        }
+    }
+    private void setupEventListeners() {
+        // Bus type filter listeners
+        jRadioButton3.addActionListener(e -> applyFilters()); // Premium
+        jRadioButton4.addActionListener(e -> applyFilters()); // Classic
+        
+        // Station filter listeners
+        JCheckBox[] stationCheckboxes = {
+            jCheckBox12, jCheckBox21, jCheckBox22, jCheckBox23, jCheckBox24,
+            jCheckBox25, jCheckBox26, jCheckBox27, jCheckBox28, jCheckBox29,
+            jCheckBox30, jCheckBox31, jCheckBox32, jCheckBox33, jCheckBox34,
+            jCheckBox35, jCheckBox36, jCheckBox37, jCheckBox38, jCheckBox39
+        };
+        
+        for (JCheckBox checkBox : stationCheckboxes) {
+            checkBox.addActionListener(e -> applyFilters());
+        }
+        
+        
+        // Reset button
+        jButton3.addActionListener(e -> resetFilters());
+        
+        // Table click listener for Book Now
+        scheduleTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = scheduleTable.rowAtPoint(evt.getPoint());
+                int col = scheduleTable.columnAtPoint(evt.getPoint());
+                
+                if (col == 8 && row >= 0) { // Book Now column
+                    try {
+                        int modelRow = scheduleTable.convertRowIndexToModel(row);
+                        int scheduleId = (int) tableModel.getValueAt(modelRow, 9); // Hidden ID column
+                        controller.handleBookNow(scheduleId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+    
+    
+    private void loadInitialData() {
+         System.out.println("Loading initial data...");
+        controller.loadAllSchedules();
+    }
+    
+    private void hideScheduleIdColumn() {
+        try {
+            scheduleTable.removeColumn(scheduleTable.getColumnModel().getColumn(9));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Column already hidden, ignore
+        }
+    }
+    
+    public void displaySchedules(List<Schedule> schedules) {
+        System.out.println("Displaying " + schedules.size() + " schedules");
+    
+        tableModel.setRowCount(0); // Clear existing data
+
+        for (Schedule schedule : schedules) {
+            System.out.println("Adding schedule: " + schedule.getPickupPoint() + " to " + schedule.getArrivalPoint());
+
+            Object[] row = {
+                schedule.getPickupPoint(),
+                schedule.getArrivalPoint(),
+                schedule.getTravelDate().toString(),
+                schedule.getDepartureTime().toString(),
+                schedule.getBusType(),
+                "₱" + String.valueOf((int)schedule.getFare()),
+                String.valueOf(schedule.getAvailableSeats()),
+                String.valueOf(schedule.getCapacity()),
+                "Book Now",
+                schedule.getScheduleId() // Hidden column for ID
+            };
+            tableModel.addRow(row);
+        }
+
+        System.out.println("Total rows in table: " + tableModel.getRowCount());
+        hideScheduleIdColumn(); 
+    }
+    
+    private void applyFilters() {
+        String busType = getSelectedBusType();
+        List<String> stations = getSelectedStations();
+        controller.loadFilteredSchedules(busType, stations);
+    }
+    
+    private String getSelectedBusType() {
+        if (jRadioButton3.isSelected()) return "Premium";
+        if (jRadioButton4.isSelected()) return "Classic";
+        return null; // No bus type selected
+    }
+    
+    private List<String> getSelectedStations() {
+        List<String> stations = new ArrayList<>();
+        if (jCheckBox21.isSelected()) stations.add("Cubao");
+        if (jCheckBox22.isSelected()) stations.add("Pasig");
+        if (jCheckBox23.isSelected()) stations.add("Makati");
+        if (jCheckBox24.isSelected()) stations.add("Manila");
+        if (jCheckBox25.isSelected()) stations.add("Mandaluyong");
+        if (jCheckBox26.isSelected()) stations.add("Marikina");
+        if (jCheckBox27.isSelected()) stations.add("San Juan");
+        if (jCheckBox28.isSelected()) stations.add("Caloocan");
+        if (jCheckBox29.isSelected()) stations.add("Quezon Ave");
+        if (jCheckBox12.isSelected()) stations.add("Taguig BGC");
+        if (jCheckBox30.isSelected()) stations.add("Balanga");
+        if (jCheckBox31.isSelected()) stations.add("Cabanatuan");
+        if (jCheckBox32.isSelected()) stations.add("Baler, Aurora");
+        if (jCheckBox33.isSelected()) stations.add("Lucena");
+        if (jCheckBox34.isSelected()) stations.add("Batangas");
+        if (jCheckBox35.isSelected()) stations.add("Lipa");
+        if (jCheckBox36.isSelected()) stations.add("Tarlac");
+        if (jCheckBox37.isSelected()) stations.add("Bulacan");
+        if (jCheckBox38.isSelected()) stations.add("Dagupan");
+        if (jCheckBox39.isSelected()) stations.add("Olongapo");
+        
+        return stations;
+    }
+    
+    
+    
+    private void resetFilters() {
+        // Clear bus type selection
+        busType.clearSelection();
+        
+        // Clear all station checkboxes
+        JCheckBox[] stationCheckboxes = {
+            jCheckBox12, jCheckBox21, jCheckBox22, jCheckBox23, jCheckBox24,
+            jCheckBox25, jCheckBox26, jCheckBox27, jCheckBox28, jCheckBox29,
+            jCheckBox30, jCheckBox31, jCheckBox32, jCheckBox33, jCheckBox34,
+            jCheckBox35, jCheckBox36, jCheckBox37, jCheckBox38, jCheckBox39
+        };
+        
+        for (JCheckBox checkBox : stationCheckboxes) {
+            checkBox.setSelected(false);
+        }
+        
+        controller.loadAllSchedules();
+    }
+    
+
+    private int getCurrentUserId() {
+        util.UserSession session = util.UserSession.getInstance();
+        if (session.isLoggedIn()) {
+            return session.getCurrentUserId();
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "Please log in to make a booking", 
+                "Login Required", 
+                JOptionPane.WARNING_MESSAGE);
+            return -1;
+        }
+    }
+
+
+    public void navigateToBookingDetails(Schedule schedule) {
+        // Get current user ID
+        int userId = getCurrentUserId();
+        if (userId == -1) {
+            return; // User not logged in
+        }
+
+        // Check if user already has an active booking for this schedule
+        BookingDAO bookingDAO = new BookingDAO();
+        if (bookingDAO.hasActiveBookingForSchedule(userId, schedule.getScheduleId())) {
+            JOptionPane.showMessageDialog(this,
+                "You already have an active booking for this schedule.\n" +
+                "Please wait for your current booking to be completed before booking again.",
+                "Active Booking Exists",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Continue with existing passenger selection logic
+        String input = JOptionPane.showInputDialog(this, 
+            "Enter number of passengers:", 
+            "Passenger Selection", 
+            JOptionPane.QUESTION_MESSAGE);
+
+        if (input == null) {
+            return;
+        }
+
+        try {
+            int passengers = Integer.parseInt(input);
+
+            if (passengers < 1 || passengers > schedule.getAvailableSeats()) {
+                JOptionPane.showMessageDialog(this, 
+                    "Please enter between 1 and " + schedule.getAvailableSeats() + " passengers", 
+                    "Invalid Input", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            System.out.println("🔍 DEBUG in navigateToBookingDetails:");
+            System.out.println("🔍 Schedule ID: " + schedule.getScheduleId());
+            System.out.println("🔍 Plate number from table: '" + schedule.getPlateNumber() + "'");
+
+            // Create and setup BookingInfo panel with all required data
+            BookingInfo bookingInfoPanel = new BookingInfo(
+                passengers, 
+                schedule.getBusType(), 
+                schedule.getFare(), 
+                schedule.getScheduleId(), 
+                userId
+            );
+
+            // Pass schedule details for display
+            bookingInfoPanel.setScheduleDetails(schedule);
+
+            // Navigate to booking details panel
+            navigateToPanel(bookingInfoPanel, "bookingInfo1");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, 
+                "Please enter a valid number", 
+                "Invalid Input", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+        // Helper method for navigation
+    private void navigateToPanel(JPanel panel, String cardName) {
+        Container parent = getParent();
+        if (parent != null && parent.getParent() != null) {
+            Container grandParent = parent.getParent();
+            if (grandParent.getLayout() instanceof CardLayout) {
+
+                // Remove existing panel with same name
+                Component[] components = grandParent.getComponents();
+                for (Component comp : components) {
+                    if (comp.getName() != null && comp.getName().equals(cardName)) {
+                        grandParent.remove(comp);
+                        break;
+                    }
+                }
+
+                // Add the new panel
+                panel.setName(cardName);
+                grandParent.add(panel, cardName);
+
+                // Show the panel
+                CardLayout cardLayout = (CardLayout) grandParent.getLayout();
+                cardLayout.show(grandParent, cardName);
+            }
+        }
+    }
 
 
 
@@ -89,10 +444,10 @@ public class BookingsPanel extends javax.swing.JPanel {
         jCheckBox37 = new javax.swing.JCheckBox();
         jCheckBox38 = new javax.swing.JCheckBox();
         jCheckBox39 = new javax.swing.JCheckBox();
-        jPanel2 = new javax.swing.JPanel();
-        searchText = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jButton34 = new javax.swing.JButton();
+        jButton35 = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 31)); // NOI18N
         jLabel18.setText("Book For How Many Persons?");
@@ -322,7 +677,7 @@ public class BookingsPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(scheduleTable);
 
         BookingItemContainerPanel.add(jScrollPane2);
-        jScrollPane2.setBounds(20, 60, 900, 450);
+        jScrollPane2.setBounds(20, 60, 900, 440);
 
         FilterPanel.setBackground(new java.awt.Color(224, 234, 235));
         FilterPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -596,46 +951,61 @@ public class BookingsPanel extends javax.swing.JPanel {
         FilterPanel.add(jCheckBox39);
         jCheckBox39.setBounds(150, 370, 86, 20);
 
-        jPanel2.setBackground(new java.awt.Color(224, 234, 235));
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jPanel1.setBackground(new java.awt.Color(224, 234, 235));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        searchText.setText("Search");
-        searchText.addActionListener(new java.awt.event.ActionListener() {
+        jButton34.setBackground(new java.awt.Color(153, 0, 0));
+        jButton34.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton34.setForeground(new java.awt.Color(255, 255, 255));
+        jButton34.setText("CLASSIC");
+        jButton34.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        jButton34.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTextActionPerformed(evt);
+                jButton34ActionPerformed(evt);
             }
         });
 
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
+        jButton35.setBackground(new java.awt.Color(36, 106, 112));
+        jButton35.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton35.setForeground(new java.awt.Color(255, 255, 255));
+        jButton35.setText("PREMIUM");
+        jButton35.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        jButton35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton35ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/refresh.png"))); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel19.setText("Ammenities");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel14))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton35, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4)
-                            .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton34, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel19)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -643,25 +1013,25 @@ public class BookingsPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(FilterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(FilterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(BookingItemContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 954, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BookingItemContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BookingItemContainerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(FilterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(151, Short.MAX_VALUE))
+                        .addComponent(FilterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -749,10 +1119,6 @@ public class BookingsPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
-    private void searchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchTextActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -762,12 +1128,39 @@ public class BookingsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-             // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void bookNowBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookNowBtnActionPerformed
     // Assuming the structure is: BookingsPanel -> SomeContainer -> parentPanel (CardLayout)
     }//GEN-LAST:event_bookNowBtnActionPerformed
+
+    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
+        JOptionPane.showMessageDialog(this, 
+        " *CLASSIC BUS AMENITIES\n\n" +
+        "• Random seat assignment\n" +
+        "• No food or snacks provided\n" +
+        "• Standard comfort seats\n" +
+        "• Basic air conditioning\n" +
+        "• Affordable pricing\n\n" +
+        "Note: Seats will be randomly assigned by the system",
+        "Classic Bus Features",
+        JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton34ActionPerformed
+
+    private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
+        JOptionPane.showMessageDialog(this, 
+        " *PREMIUM BUS AMENITIES\n\n" +
+        "• Choose your own seats\n" +
+        "• Complimentary snacks & drinks\n" +
+        "• Extra legroom seats\n" +
+        "• Enhanced air conditioning\n" +
+        "• Priority boarding\n" +
+        "• Onboard entertainment\n\n" +
+        "Enjoy a premium travel experience!",
+        "Premium Bus Features",
+        JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton35ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -783,7 +1176,8 @@ public class BookingsPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton34;
+    private javax.swing.JButton jButton35;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox12;
@@ -812,10 +1206,10 @@ public class BookingsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -824,7 +1218,7 @@ public class BookingsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollBar jScrollBar2;
@@ -834,6 +1228,5 @@ public class BookingsPanel extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable scheduleTable;
-    private javax.swing.JTextField searchText;
     // End of variables declaration//GEN-END:variables
 }

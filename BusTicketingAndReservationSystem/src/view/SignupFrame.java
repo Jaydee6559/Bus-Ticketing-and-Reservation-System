@@ -283,39 +283,39 @@ public class SignupFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     // Get data from form
-    String firstName = jTextField3.getText();
-    String lastName = jTextField2.getText();
-    String email = jTextField1.getText();
-    String phone = jTextField4.getText(); // Note: This should be a text field for phone
-    String password = new String(jPasswordField1.getPassword());
-    String confirmPassword = new String(jPasswordField3.getPassword());
-    
-    // Basic validation in View
-    if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || 
-        phone.isEmpty() || password.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill all fields");
-        return;
-    }
-    
-    if (!password.equals(confirmPassword)) {
-        JOptionPane.showMessageDialog(this, "Passwords do not match");
-        return;
-    }
-    
-    // USE CONTROLLER instead of direct database calls!
-    AuthController authController = new AuthController();
-    boolean success = authController.registerUser(firstName, lastName, email, password, phone);
-    
-    if (success) {
-        JOptionPane.showMessageDialog(this, "Registration successful! Please check your email for OTP verification.");
-        // Open OTP verification frame
-        OTPVerificationFrame otpFrame = new OTPVerificationFrame(email);
-        otpFrame.setVisible(true);
-        this.dispose();
-    } else {
-        JOptionPane.showMessageDialog(this, "Registration failed. Email may already exist.");
-    }
+
+        String firstName = jTextField3.getText();
+        String lastName = jTextField2.getText();
+        String email = jTextField1.getText();
+        String phone = jTextField4.getText(); // Note: This should be a text field for phone
+        String password = new String(jPasswordField1.getPassword());
+        String confirmPassword = new String(jPasswordField3.getPassword());
+
+        // Basic validation in View
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || 
+            phone.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match");
+            return;
+        }
+
+        // USE CONTROLLER instead of direct database calls!
+        AuthController authController = new AuthController();
+        boolean success = authController.registerUser(firstName, lastName, email, password, phone);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Registration successful! Please check your email for OTP verification.");
+            // Open OTP verification frame
+            OTPVerificationFrame otpFrame = new OTPVerificationFrame(email);
+            otpFrame.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Registration failed. Email may already exist.");
+        }
     
     
 

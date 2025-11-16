@@ -4,17 +4,23 @@
  */
 package view;
 
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jayde
  */
 public class AdminFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdminFrame
-     */
+CardLayout cardLayout;
     public AdminFrame() {
         initComponents();
+        cardLayout = (CardLayout) parentPanel.getLayout();
+
+        cardLayout.show(parentPanel, "dashboardPanel1");
+        
+        
     }
 
     /**
@@ -34,13 +40,19 @@ public class AdminFrame extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        Parent = new javax.swing.JPanel();
+        parentPanel = new javax.swing.JPanel();
+        dashboardPanel1 = new view.DashboardPanel();
+        dashboardPanel2 = new view.DashboardPanel();
+        usersPanel1 = new view.UsersPanel();
+        usersPanel2 = new view.UsersPanel();
+        busesPanel1 = new view.BusesPanel();
+        schedulesPanel1 = new view.SchedulesPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(235, 235, 235));
         setPreferredSize(new java.awt.Dimension(1300, 800));
+        getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(36, 106, 112));
         jPanel1.setLayout(null);
@@ -50,21 +62,26 @@ public class AdminFrame extends javax.swing.JFrame {
         jLabelbus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/colored-bus flip fixerd new.png"))); // NOI18N
         jLabelbus.setText("Bus");
         jPanel1.add(jLabelbus);
-        jLabelbus.setBounds(50, 30, 125, 80);
+        jLabelbus.setBounds(40, 30, 140, 80);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("blablablabla");
+        jLabel7.setText("BusTicketingSystem");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(140, 80, 80, 16);
+        jLabel7.setBounds(120, 80, 120, 20);
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator1);
-        jSeparator1.setBounds(0, 134, 309, 10);
+        jSeparator1.setBounds(0, 134, 330, 10);
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setText("Logout");
         jButton1.setBorder(new javax.swing.border.MatteBorder(null));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1);
         jButton1.setBounds(60, 680, 180, 40);
 
@@ -73,6 +90,11 @@ public class AdminFrame extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Dashboard");
         jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2);
         jButton2.setBounds(80, 220, 140, 40);
 
@@ -81,62 +103,130 @@ public class AdminFrame extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Users");
         jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3);
         jButton3.setBounds(80, 290, 140, 40);
 
         jButton4.setBackground(new java.awt.Color(36, 106, 112));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Trips");
+        jButton4.setText("Schedules");
         jButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4);
         jButton4.setBounds(80, 360, 140, 40);
-
-        jButton5.setBackground(new java.awt.Color(36, 106, 112));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Payments");
-        jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jPanel1.add(jButton5);
-        jButton5.setBounds(80, 440, 140, 40);
 
         jButton6.setBackground(new java.awt.Color(36, 106, 112));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Reports");
+        jButton6.setText("Buses");
         jButton6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton6);
-        jButton6.setBounds(80, 520, 140, 40);
+        jButton6.setBounds(80, 430, 140, 40);
 
-        javax.swing.GroupLayout ParentLayout = new javax.swing.GroupLayout(Parent);
-        Parent.setLayout(ParentLayout);
-        ParentLayout.setHorizontalGroup(
-            ParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 999, Short.MAX_VALUE)
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 320, 812);
+
+        parentPanel.setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout dashboardPanel1Layout = new javax.swing.GroupLayout(dashboardPanel1);
+        dashboardPanel1.setLayout(dashboardPanel1Layout);
+        dashboardPanel1Layout.setHorizontalGroup(
+            dashboardPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashboardPanel1Layout.createSequentialGroup()
+                .addComponent(dashboardPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-        ParentLayout.setVerticalGroup(
-            ParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        dashboardPanel1Layout.setVerticalGroup(
+            dashboardPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dashboardPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Parent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        parentPanel.add(dashboardPanel1, "dashboardPanel1");
+
+        javax.swing.GroupLayout usersPanel1Layout = new javax.swing.GroupLayout(usersPanel1);
+        usersPanel1.setLayout(usersPanel1Layout);
+        usersPanel1Layout.setHorizontalGroup(
+            usersPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(usersPanel1Layout.createSequentialGroup()
+                .addComponent(usersPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 25, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-            .addComponent(Parent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        usersPanel1Layout.setVerticalGroup(
+            usersPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(usersPanel1Layout.createSequentialGroup()
+                .addComponent(usersPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
+
+        parentPanel.add(usersPanel1, "usersPanel1");
+        parentPanel.add(busesPanel1, "busesPanel1");
+
+        javax.swing.GroupLayout schedulesPanel1Layout = new javax.swing.GroupLayout(schedulesPanel1);
+        schedulesPanel1.setLayout(schedulesPanel1Layout);
+        schedulesPanel1Layout.setHorizontalGroup(
+            schedulesPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1300, Short.MAX_VALUE)
+        );
+        schedulesPanel1Layout.setVerticalGroup(
+            schedulesPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 812, Short.MAX_VALUE)
+        );
+
+        parentPanel.add(schedulesPanel1, "schedulesPanel1");
+
+        getContentPane().add(parentPanel);
+        parentPanel.setBounds(312, 0, 1300, 812);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+           int choice = JOptionPane.showConfirmDialog(
+           this,
+           "Are you sure you want to log out?",
+           "Confirm Logout",
+           JOptionPane.YES_NO_OPTION
+       );
+
+           if (choice == JOptionPane.YES_OPTION) {
+           // Go back to LoginFrame
+           LoginFrame loginFrame = new LoginFrame();
+           loginFrame.setVisible(true);
+           loginFrame.pack();
+           loginFrame.setLocationRelativeTo(null);
+           this.dispose();
+       }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       cardLayout.show(parentPanel, "schedulesPanel1");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       cardLayout.show(parentPanel, "dashboardPanel1");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        cardLayout.show(parentPanel, "usersPanel1");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        cardLayout.show(parentPanel, "busesPanel1");
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,16 +264,21 @@ public class AdminFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Parent;
+    private view.BusesPanel busesPanel1;
+    private view.DashboardPanel dashboardPanel1;
+    private view.DashboardPanel dashboardPanel2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelbus;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel parentPanel;
+    private view.SchedulesPanel schedulesPanel1;
+    private view.UsersPanel usersPanel1;
+    private view.UsersPanel usersPanel2;
     // End of variables declaration//GEN-END:variables
 }

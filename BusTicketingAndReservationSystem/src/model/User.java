@@ -12,7 +12,8 @@ public class User {
     private String userType;
     private boolean verified;
     private Timestamp createdAt;
-
+    private String userStatus;
+    
     // Constructor
     public User() {}
 
@@ -43,4 +44,7 @@ public class User {
     
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    
+    public String getUserStatus() { return userStatus; }
+public void setUserStatus(String userStatus) { this.userStatus = userStatus; }
 }

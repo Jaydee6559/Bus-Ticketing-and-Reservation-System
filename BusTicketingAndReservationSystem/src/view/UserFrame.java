@@ -9,8 +9,10 @@ import java.awt.CardLayout;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.User;
+import util.UserSession;
 
 
 /**
@@ -18,7 +20,7 @@ import model.User;
  * @author jayde
  */
 public class UserFrame extends javax.swing.JFrame {
-    
+    private UserSession userSession;
     CardLayout cardLayout;
     private User user; 
     /**
@@ -45,7 +47,12 @@ public class UserFrame extends javax.swing.JFrame {
     public void showBookingInfo() {
         cardLayout.show(parentPanel, "bookingInfo1");
     }
-
+    
+    
+    private int getCurrentUserId() {
+        return userSession.getCurrentUserId();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,13 +86,14 @@ public class UserFrame extends javax.swing.JFrame {
         homePanel1 = new view.HomePanel();
         homePanel2 = new view.HomePanel();
         profilePanel1 = new view.ProfilePanel();
+        profilePanel2 = new view.ProfilePanel();
         aboutPanel1 = new view.AboutPanel();
         contactPanel1 = new view.ContactPanel();
-        contactPanel2 = new view.ContactPanel();
+        contactPanel3 = new view.ContactPanel();
         bookingInfo1 = new view.BookingInfo();
         bookingInfo2 = new view.BookingInfo();
         bookingsPanell1 = new view.BookingsPanell();
-        bookingsPanel1 = new view.BookingsPanel();
+        bookingsPanel2 = new view.BookingsPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -209,11 +217,11 @@ public class UserFrame extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/mobile (1).png"))); // NOI18N
-        jLabel4.setText("+638123012313");
+        jLabel4.setText("+63929637192");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/email (1).png"))); // NOI18N
-        jLabel5.setText("@busgmail.com");
+        jLabel5.setText("@tipbusgmail.com");
 
         jSeparator1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -272,6 +280,11 @@ public class UserFrame extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Logout");
         jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(topPanel);
         topPanel.setLayout(topPanelLayout);
@@ -294,7 +307,7 @@ public class UserFrame extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
@@ -347,11 +360,16 @@ public class UserFrame extends javax.swing.JFrame {
         profilePanel1.setLayout(profilePanel1Layout);
         profilePanel1Layout.setHorizontalGroup(
             profilePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3896, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(profilePanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         profilePanel1Layout.setVerticalGroup(
             profilePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 753, Short.MAX_VALUE)
+            .addGroup(profilePanel1Layout.createSequentialGroup()
+                .addComponent(profilePanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         parentPanel.add(profilePanel1, "profilePanel1");
@@ -360,27 +378,16 @@ public class UserFrame extends javax.swing.JFrame {
         aboutPanel1.setLayout(aboutPanel1Layout);
         aboutPanel1Layout.setHorizontalGroup(
             aboutPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3896, Short.MAX_VALUE)
+            .addGap(0, 1300, Short.MAX_VALUE)
         );
         aboutPanel1Layout.setVerticalGroup(
             aboutPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 753, Short.MAX_VALUE)
+            .addGap(0, 550, Short.MAX_VALUE)
         );
 
         parentPanel.add(aboutPanel1, "aboutPanel1");
 
         contactPanel1.setBackground(new java.awt.Color(235, 235, 235));
-
-        javax.swing.GroupLayout contactPanel2Layout = new javax.swing.GroupLayout(contactPanel2);
-        contactPanel2.setLayout(contactPanel2Layout);
-        contactPanel2Layout.setHorizontalGroup(
-            contactPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1300, Short.MAX_VALUE)
-        );
-        contactPanel2Layout.setVerticalGroup(
-            contactPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout contactPanel1Layout = new javax.swing.GroupLayout(contactPanel1);
         contactPanel1.setLayout(contactPanel1Layout);
@@ -388,14 +395,14 @@ public class UserFrame extends javax.swing.JFrame {
             contactPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contactPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(contactPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contactPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         contactPanel1Layout.setVerticalGroup(
             contactPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contactPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(contactPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contactPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -424,15 +431,14 @@ public class UserFrame extends javax.swing.JFrame {
         bookingsPanell1Layout.setHorizontalGroup(
             bookingsPanell1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bookingsPanell1Layout.createSequentialGroup()
-                .addGap(1312, 1312, 1312)
-                .addComponent(bookingsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bookingsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         bookingsPanell1Layout.setVerticalGroup(
             bookingsPanell1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bookingsPanell1Layout.createSequentialGroup()
-                .addGap(0, 34, Short.MAX_VALUE)
-                .addComponent(bookingsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(bookingsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         parentPanel.add(bookingsPanell1, "bookingsPanell1");
@@ -490,6 +496,25 @@ public class UserFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton14ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            int choice = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to log out?",
+            "Confirm Logout",
+            JOptionPane.YES_NO_OPTION
+        );
+        
+            if (choice == JOptionPane.YES_OPTION) {
+            // Go back to LoginFrame
+            LoginFrame loginFrame = new LoginFrame();
+            loginFrame.setVisible(true);
+            loginFrame.pack();
+            loginFrame.setLocationRelativeTo(null);
+            this.dispose();
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -531,11 +556,11 @@ public class UserFrame extends javax.swing.JFrame {
     private view.BookingInfo bookingInfo1;
     private view.BookingInfo bookingInfo2;
     private javax.swing.JButton bookingsBtn;
-    private view.BookingsPanel bookingsPanel1;
+    private view.BookingsPanel bookingsPanel2;
     private view.BookingsPanell bookingsPanell1;
     private javax.swing.JButton contactBtn;
     private view.ContactPanel contactPanel1;
-    private view.ContactPanel contactPanel2;
+    private view.ContactPanel contactPanel3;
     private javax.swing.JButton homeBtn;
     private view.HomePanel homePanel1;
     private view.HomePanel homePanel2;
@@ -560,6 +585,7 @@ public class UserFrame extends javax.swing.JFrame {
     private javax.swing.JPanel parentPanel;
     private javax.swing.JButton profileBtn;
     private view.ProfilePanel profilePanel1;
+    private view.ProfilePanel profilePanel2;
     private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables
 }

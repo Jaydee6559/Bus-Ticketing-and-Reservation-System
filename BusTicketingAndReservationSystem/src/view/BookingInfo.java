@@ -1,8 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
+
+import dao.BookingDAO;
+import dao.ScheduleDAO;
+import model.Booking;
+import model.Payment;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.List;
+import model.Schedule;
 
 /**
  *
@@ -10,11 +18,538 @@ package view;
  */
 public class BookingInfo extends javax.swing.JPanel {
 
+
+    private int passengerCount;
+    private String busType;
+    private double fare;
+    private String pickupPoint;
+    private String arrivalPoint;
+    private List<String> selectedSeats = new ArrayList<>();
+    private int scheduleId;
+    private int userId;
+    private BookingDAO bookingDAO;
+    
+    // Seat mapping
+    private HashMap<JButton, String> seatMap;
+
     /**
-     * Creates new form BookingInfo
+     * Creates new form BookingInfo with booking data
+     */
+    public BookingInfo(int passengerCount, String busType, double fare, int scheduleId, int userId) {
+        initComponents();
+        this.passengerCount = passengerCount;
+        this.busType = busType;
+        this.fare = fare;
+        this.scheduleId = scheduleId;
+        this.userId = userId;
+        this.bookingDAO = new BookingDAO();
+        this.seatMap = new HashMap<>();
+        this.selectedSeats = new ArrayList<>();
+
+
+
+        System.out.println("BookingInfo created with:");
+        System.out.println("  Passengers: " + passengerCount);
+        System.out.println("  Bus Type: " + busType);
+        System.out.println("  Fare: " + fare);
+        System.out.println("  Schedule ID: " + scheduleId);
+        System.out.println("  User ID: " + userId);
+
+    }
+
+    /**
+     * Default constructor for compatibility
      */
     public BookingInfo() {
         initComponents();
+        this.bookingDAO = new BookingDAO();
+        this.seatMap = new HashMap<>();
+        this.selectedSeats = new ArrayList<>();
+
+ 
+        this.passengerCount = 0;
+        this.busType = "";
+        this.fare = 0.0;
+        this.scheduleId = 0;
+        this.userId = 0;
+
+    }
+
+
+    private void initializeBookingInfo() {
+    
+        if (busType == null || passengerCount <= 0) {
+            JOptionPane.showMessageDialog(this, "Invalid booking parameters", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        System.out.println("Initializing booking: " + passengerCount + " passengers, " + busType + " bus, Schedule ID: " + scheduleId);
+
+        // Initialize seat map
+        initializeSeatMap();
+
+        // Update seat colors based on database
+        updateSeatColors();
+
+        // Set up payment method
+        setupPaymentMethod();
+
+        // Set up UI based on bus type
+        if ("Classic".equalsIgnoreCase(busType)) {
+            setupClassicBus();
+        } else if ("Premium".equalsIgnoreCase(busType)) {
+            setupPremiumBus();
+        }
+
+        updatePaymentInfo();
+
+        updateBookingDetails();
+    }
+
+
+    private void initializeSeatMap() {
+        seatMap.put(jButton1, "A1");
+        seatMap.put(jButton2, "A2");
+        seatMap.put(jButton3, "B1");
+        seatMap.put(jButton4, "A3");
+        seatMap.put(jButton5, "B2");
+        seatMap.put(jButton6, "C1");
+        seatMap.put(jButton7, "B3");
+        seatMap.put(jButton8, "C2");
+        seatMap.put(jButton9, "C3");
+        seatMap.put(jButton10, "D1");
+        seatMap.put(jButton11, "D2");
+        seatMap.put(jButton12, "D3");
+        seatMap.put(jButton13, "D6");
+        seatMap.put(jButton14, "D7");
+        seatMap.put(jButton15, "D8");
+        seatMap.put(jButton16, "E1");
+        seatMap.put(jButton17, "E2");
+        seatMap.put(jButton18, "E3");
+        seatMap.put(jButton19, "F1");
+        seatMap.put(jButton20, "F2");
+        seatMap.put(jButton21, "F3");
+        seatMap.put(jButton22, "B4");
+        seatMap.put(jButton23, "B5");
+        seatMap.put(jButton24, "C4");
+        seatMap.put(jButton25, "C5");
+        seatMap.put(jButton26, "D4");
+        seatMap.put(jButton27, "D5");
+        seatMap.put(jButton28, "E4");
+        seatMap.put(jButton29, "E5");
+        seatMap.put(jButton30, "F4");
+        seatMap.put(jButton31, "F5");
+    }
+
+
+    private void setupClassicBus() {
+        // Disable all seat buttons for Classic bus
+        disableAllSeatButtons();
+
+        // Automatically assign random seats
+        assignRandomSeats();
+
+        // Update UI to show assigned seats with colors
+        updateSeatColors(); // Add this line!
+
+        // Update seat display in table
+        updateSeatDisplay();
+
+        // Show info message
+        JOptionPane.showMessageDialog(this, 
+            "Classic Bus: " + passengerCount + " seats have been automatically assigned.\n" +
+            "Assigned Seats: " + String.join(", ", selectedSeats),
+            "Automatic Seat Assignment",
+            JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
+    private void setupPremiumBus() {
+
+        setupSeatSelectionListeners();
+
+        // Show info message
+        JOptionPane.showMessageDialog(this, 
+            "Premium Bus: Please select " + passengerCount + " seats.\n" +
+            "Click on available seats (gray) to select them.",
+            "Manual Seat Selection",
+            JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
+    private void assignRandomSeats() {
+        selectedSeats.clear();
+        
+        // Get available seats from database
+        List<String> availableSeats = getAvailableSeatsFromDatabase();
+        
+        if (availableSeats.size() < passengerCount) {
+            JOptionPane.showMessageDialog(this, 
+                "Not enough available seats! Only " + availableSeats.size() + " seats left.",
+                "Seat Error", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Randomly select seats
+        Collections.shuffle(availableSeats);
+        for (int i = 0; i < passengerCount && i < availableSeats.size(); i++) {
+            selectedSeats.add(availableSeats.get(i));
+        }
+        
+        System.out.println("Automatically assigned seats: " + selectedSeats);
+    }
+    
+    private void refreshPaymentPanel() {
+        try {
+            System.out.println(" Attempting to refresh payment panel...");
+
+            // Navigate up the container hierarchy to find the main container
+            Container parent = getParent();
+            if (parent != null && parent.getParent() != null) {
+                Container grandParent = parent.getParent();
+
+                // Look for the payment panel in the container
+                Component[] components = grandParent.getComponents();
+                for (Component comp : components) {
+                    // Check if this is a PaymentPanel (adjust the class name as needed)
+                    if (comp.getClass().getSimpleName().equals("ProfilePanel")) {
+                        try {
+                            java.lang.reflect.Method refreshMethod = comp.getClass().getMethod("refreshPaymentData");
+                            refreshMethod.invoke(comp);
+                            System.out.println(" Payment panel refreshed successfully!");
+                        } catch (Exception e) {
+                            System.out.println("️ Could not call refreshPaymentData: " + e.getMessage());
+
+                        }
+                        break;
+                    }
+                }
+            } else {
+                System.out.println(" Could not find parent container for payment panel");
+            }
+        } catch (Exception e) {
+            System.err.println("Error refreshing payment panel: " + e.getMessage());
+        }
+    }
+
+    private List<String> getAvailableSeatsFromDatabase() {
+        List<String> availableSeats = new ArrayList<>();
+
+        try {
+            // All possible seats in the bus
+            String[] allSeats = {"A1", "A2", "A3", "B1", "B2", "B3", "B4", "B5", "C1", "C2", 
+                               "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "D6", "D7", 
+                               "D8", "E1", "E2", "E3", "E4", "E5", "F1", "F2", "F3", "F4", "F5"};
+
+            // Get occupied seats from database
+            List<String> occupiedSeats = bookingDAO.getOccupiedSeats(scheduleId);
+
+            for (String seat : allSeats) {
+                if (!occupiedSeats.contains(seat)) {
+                    availableSeats.add(seat);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, 
+                "Error loading available seats: " + e.getMessage(), 
+                "Database Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+
+        return availableSeats;
+    }
+
+
+    private void disableAllSeatButtons() {
+        for (JButton button : seatMap.keySet()) {
+            button.setEnabled(false);
+        }
+    }
+
+    private void setupSeatSelectionListeners() {
+        for (Map.Entry<JButton, String> entry : seatMap.entrySet()) {
+        JButton button = entry.getKey();
+        String seatNumber = entry.getValue();
+        
+        // Remove any existing listeners to avoid duplicates
+        for (ActionListener al : button.getActionListeners()) {
+            button.removeActionListener(al);
+        }
+        
+        // Add the proper listener
+        button.addActionListener(e -> handleSeatSelection(button, seatNumber));
+        }
+    }
+
+
+    private void handleSeatSelection(JButton button, String seatNumber) {
+        // Get occupied seats to check if this seat is available
+        List<String> occupiedSeats = bookingDAO.getOccupiedSeats(scheduleId);
+        
+        if (occupiedSeats.contains(seatNumber)) {
+            JOptionPane.showMessageDialog(this, 
+                "Seat " + seatNumber + " is already occupied", 
+                "Seat Not Available", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (selectedSeats.contains(seatNumber)) {
+            // Deselect seat
+            selectedSeats.remove(seatNumber);
+            button.setBackground(new java.awt.Color(204, 204, 204)); // Available color
+            System.out.println("Deselected seat: " + seatNumber);
+        } else {
+            // Check if we can select more seats
+            if (selectedSeats.size() >= passengerCount) {
+                JOptionPane.showMessageDialog(this, 
+                    "You can only select " + passengerCount + " seats", 
+                    "Selection Limit", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            // Select seat
+            selectedSeats.add(seatNumber);
+            button.setBackground(new java.awt.Color(36, 106, 112)); // Selected color
+            System.out.println("Selected seat: " + seatNumber);
+        }
+        
+        updateSeatDisplay();
+        updatePaymentInfo();
+    }
+
+
+    private void updateSeatColors() {
+        try {
+            // Get occupied seats from database
+            List<String> occupiedSeats = bookingDAO.getOccupiedSeats(scheduleId);
+
+            for (Map.Entry<JButton, String> entry : seatMap.entrySet()) {
+                JButton button = entry.getKey();
+                String seatNumber = entry.getValue();
+
+                if (occupiedSeats.contains(seatNumber)) {
+                    // Occupied seat - red color
+                    button.setBackground(new java.awt.Color(204, 0, 51));
+                    button.setEnabled(false);
+                } else if (selectedSeats.contains(seatNumber)) {
+
+                    button.setBackground(new java.awt.Color(36, 106, 112));
+                    // For Classic bus, seats are assigned but buttons are disabled
+                    button.setEnabled("Premium".equalsIgnoreCase(busType));
+                } else {
+                    // Available seat - gray color
+                    button.setBackground(new java.awt.Color(204, 204, 204));
+                    // Only enable for Premium bus
+                    button.setEnabled("Premium".equalsIgnoreCase(busType));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, 
+                "Error updating seat colors", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+    private void updateSeatDisplay() {
+        DefaultTableModel model = (DefaultTableModel) seatTable.getModel();
+        model.setRowCount(0); // Clear existing data
+        
+        for (String seat : selectedSeats) {
+            model.addRow(new Object[]{seat, "₱" + fare});
+        }
+    }
+
+
+    private void updatePaymentInfo() {
+        double total = fare * passengerCount;
+        jLabel23.setText("₱" + total);
+    }
+
+
+    private void updateBookingDetails() {
+        
+        jLabel18.setText(new java.util.Date().toString());
+        jLabel21.setText(busType + " Bus"); // Bus type
+    }
+
+ 
+    private void setupPaymentMethod() {
+        // Clear existing items and add the correct ones
+        jComboBox1.removeAllItems();
+        jComboBox1.addItem("Gcash");
+        jComboBox1.addItem("Bank Transfer"); 
+        jComboBox1.addItem("Paymaya");
+        jComboBox1.addItem("Credit Card");
+
+        // Set default selection
+        jComboBox1.setSelectedIndex(0);
+    }
+
+    public void setScheduleDetails(Schedule schedule) {
+        if (schedule != null) {
+            jLabel18.setText(new java.util.Date().toString()); // Booking Date
+            jLabel19.setText(schedule.getPickupPoint());        // Picking Point
+            jLabel20.setText(schedule.getArrivalPoint());       // Dropping Point
+            jLabel21.setText(schedule.getBusType() + " Bus");   // Bus type
+            updatePaymentInfo();
+            initializeBookingInfo();
+        }
+    }
+
+    private void confirmBooking() {
+        try {
+            // Validate seat selection
+            if (selectedSeats.size() != passengerCount) {
+                JOptionPane.showMessageDialog(this, 
+                    "Please select exactly " + passengerCount + " seats", 
+                    "Seat Selection Error", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Get payment method
+            String paymentMethod = (String) jComboBox1.getSelectedItem();
+            if (paymentMethod == null || paymentMethod.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                    "Please select a payment method", 
+                    "Payment Method Required", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Calculate total fare
+            double totalFare = fare * passengerCount;
+
+            // Create Booking model
+            Booking booking = new Booking(userId, scheduleId, passengerCount, totalFare);
+
+            // Create booking in database
+            int bookingId = bookingDAO.createBooking(booking, selectedSeats);
+
+            if (bookingId > 0) {
+                // Create Payment model
+                Payment payment = new Payment(bookingId, paymentMethod);
+
+                // Create payment record
+                boolean paymentSuccess = bookingDAO.createPayment(payment);
+
+                if (paymentSuccess) {
+                    // Get the complete booking with generated ID
+                    Booking completeBooking = bookingDAO.getBookingById(bookingId);
+
+                    // Get schedule details to show stations
+                    ScheduleDAO scheduleDAO = new ScheduleDAO();
+                    Schedule schedule = scheduleDAO.getScheduleById(scheduleId);
+
+                    String pickupPoint = "Unknown";
+                    String arrivalPoint = "Unknown";
+                    String plateNumber = "Unknown"; 
+
+                    if (schedule != null) {
+                        pickupPoint = schedule.getPickupPoint();
+                        arrivalPoint = schedule.getArrivalPoint();
+                        plateNumber = schedule.getPlateNumber();
+                    }
+
+                    // Show confirmation message with stations
+                    JOptionPane.showMessageDialog(this, 
+                        "Booking Confirmed!\n\n" +
+                        "Booking ID: " + completeBooking.getBookingId() + "\n" +
+                        "Passengers: " + completeBooking.getPassengerNum() + "\n" +
+                        "Seats: " + String.join(", ", selectedSeats) + "\n" +
+                        "Route: " + pickupPoint + " → " + arrivalPoint + "\n" +
+                        "Bus Plate: " + plateNumber + "\n" +  // ADD THIS LINE
+                        "Total Fare: ₱" + completeBooking.getTotalFare() + "\n" +
+                        "Booking Date: " + completeBooking.getBookingDate() + "\n" +
+                        "Payment Method: " + paymentMethod + "\n\n" +
+                        "You can now Proceed to your Profile for Payment!" +  "\n" +
+                        "Thank you for your booking!", 
+                        "Booking Successful", 
+                        JOptionPane.INFORMATION_MESSAGE);
+
+        
+                    refreshPaymentPanel();
+
+                    // Navigate back to bookings panel
+                    navigateBackToBookings();
+                } else {
+                    JOptionPane.showMessageDialog(this, 
+                        "Booking created but payment failed. Please contact support.", 
+                        "Payment Error", 
+                        JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "Failed to create booking. Seats may have been taken by another user.", 
+                    "Booking Error", 
+                    JOptionPane.ERROR_MESSAGE);
+                // Refresh seat availability
+                updateSeatColors();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, 
+                "Error confirming booking: " + e.getMessage(), 
+                "Database Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+    private void navigateBackToBookings() {
+        Container parent = getParent();
+        if (parent != null && parent.getParent() != null) {
+            Container grandParent = parent.getParent();
+            if (grandParent.getLayout() instanceof CardLayout) {
+                CardLayout cardLayout = (CardLayout) grandParent.getLayout();
+                cardLayout.show(grandParent, "bookingsPanell1");
+            }
+        }
+    }
+
+    /**
+     * Show important policies
+     */
+   private void showImportantPolicies() {
+        JOptionPane.showMessageDialog(this, 
+            "   CANCELLATION & PENALTY POLICIES\n\n" +
+            "  *FREE CANCELLATION (No Penalty):\n" +
+            "   • Unpaid bookings cancelled 4+ days before departure\n" +
+            "   • No penalty applied\n\n" +
+
+            "  *LATE CANCELLATION (₱50 Penalty):\n" +
+            "   • Unpaid bookings cancelled within 3 days of departure\n" +
+            "   • ₱50 penalty fee applies\n" +
+            "   • Account will be blacklisted until penalty is paid\n\n" +
+
+            "  *POST-PAYMENT CANCELLATION (₱100 Penalty):\n" +
+            "   • Paid bookings cancelled 4+ days before departure\n" +
+            "   • ₱100 penalty fee applies\n" +
+            "   • Account will be blacklisted until penalty is paid\n\n" +
+
+            "  *CANCELLATION NOT ALLOWED:\n" +
+            "   • Within 3 days of departure for completed payments\n" +
+            "   • After departure time has passed\n\n" +
+
+            "  *IMPORTANT NOTES:\n" +
+            "   • Penalties must be paid to restore account status\n" +
+            "   • Blacklisted accounts cannot make new bookings\n" +
+            "   • Auto-cancellation occurs for unpaid bookings within 3 days\n" +
+            "   • Please arrive at least 30 minutes before departure\n" +
+            "   • Receipt required for boarding\n" +
+            "   • Luggage limit: 20kg per passenger\n\n" +
+
+            "By confirming your booking, you agree to these policies.",
+            "Cancellation & Penalty Policies",
+            JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -70,14 +605,13 @@ public class BookingInfo extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jButton32 = new javax.swing.JButton();
         jButton33 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        seatTable = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
@@ -97,12 +631,22 @@ public class BookingInfo extends javax.swing.JPanel {
         jButton35.setForeground(new java.awt.Color(255, 255, 255));
         jButton35.setText("CONFIRM ALL");
         jButton35.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        jButton35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton35ActionPerformed(evt);
+            }
+        });
 
         jButton34.setBackground(new java.awt.Color(153, 0, 0));
         jButton34.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton34.setForeground(new java.awt.Color(255, 255, 255));
         jButton34.setText("IMPORTANT POLICIES");
         jButton34.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        jButton34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton34ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
@@ -446,11 +990,6 @@ public class BookingInfo extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel11.setText("Back");
 
-        jButton32.setBackground(new java.awt.Color(36, 106, 112));
-        jButton32.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton32.setForeground(new java.awt.Color(255, 255, 255));
-        jButton32.setText("CONFIRM SEATS");
-
         jButton33.setBackground(new java.awt.Color(36, 106, 112));
         jButton33.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton33.setForeground(new java.awt.Color(255, 255, 255));
@@ -503,7 +1042,7 @@ public class BookingInfo extends javax.swing.JPanel {
                     .addComponent(jLabel10)
                     .addComponent(jLabel11))
                 .addGap(40, 40, 40)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -540,9 +1079,7 @@ public class BookingInfo extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton32)))
+                        .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(145, 145, 145)
@@ -621,8 +1158,7 @@ public class BookingInfo extends javax.swing.JPanel {
                     .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -640,8 +1176,8 @@ public class BookingInfo extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel14.setText("Dropping Point");
 
-        jTable2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        seatTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        seatTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -652,12 +1188,17 @@ public class BookingInfo extends javax.swing.JPanel {
                 "Seats", "Price"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(seatTable);
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel15.setText("Payment Method");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gcash", "Bank ", "Paymaya" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gcash", "Bank ", "Paymaya", "Credit Card" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel16.setBackground(new java.awt.Color(36, 106, 112));
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -774,7 +1315,7 @@ public class BookingInfo extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(317, Short.MAX_VALUE))
+                .addContainerGap(305, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -845,7 +1386,7 @@ public class BookingInfo extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
@@ -916,6 +1457,18 @@ public class BookingInfo extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton31ActionPerformed
 
+    private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
+         confirmBooking();
+    }//GEN-LAST:event_jButton35ActionPerformed
+
+    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
+       showImportantPolicies();
+    }//GEN-LAST:event_jButton34ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -943,7 +1496,6 @@ public class BookingInfo extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
-    private javax.swing.JButton jButton32;
     private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton34;
     private javax.swing.JButton jButton35;
@@ -979,6 +1531,6 @@ public class BookingInfo extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable seatTable;
     // End of variables declaration//GEN-END:variables
 }

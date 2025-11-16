@@ -4,7 +4,14 @@
  */
 package view;
 
+import dao.BookingDAO;
 import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import model.Booking;
 
 /**
  *
@@ -59,7 +66,7 @@ public class HomePanel extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(224, 234, 235));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cubao", "Pasig", "Makati", "Manila, ", "Mandaluyong", "Marikina", "San Juan", "Caloocan", "Quezon Ave", "Taguig BGC", "Cabanatuan", "Baler", "Aurora", "Lucena", "Batangas", "Lipa", "Tarlac", "Bulacan", "Dagupan", "Olongapo", "Balanga" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cubao", "Cubao", "Pasig", "Makati", "Manila", "Mandaluyong", "Marikina", "San Juan", "Caloocan", "Quezon Ave", "Taguig BGC", "Balanga", "Cabanatuan", "Baler Aurora", "Lucena", "Batangas", "Lipa", "Tarlac", "Bulacan", "Dagupan", "Olongapo" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -143,7 +150,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(37, 37, 37)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(251, Short.MAX_VALUE))
@@ -155,17 +162,61 @@ public class HomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        String station = (String) jComboBox1.getSelectedItem();
+        java.util.Date date = jDateChooser1.getDate();
+
+        if (station == null || date == null) {
+            JOptionPane.showMessageDialog(this, "Please select both station and date!", "Missing Information", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Convert java.util.Date to java.sql.Date
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+        // Create a list with the selected station
+        List<String> stations = new ArrayList<>();
+        stations.add(station);
+
+        java.awt.Container parent = getParent();
+        if (parent != null && parent.getParent() != null) {
+            java.awt.Container grandParent = parent.getParent();
+            if (grandParent.getLayout() instanceof CardLayout) {
+                CardLayout cardLayout = (CardLayout) grandParent.getLayout();
+                cardLayout.show(grandParent, "bookingsPanell1");
+
+                BookingsPanel bookingsPanel = findBookingsPanel(grandParent);
+                if (bookingsPanel != null) {
+                    bookingsPanel.setFilterData(stations, sqlDate, null);
+                } else {
+                    System.out.println(" BookingsPanel not found even after navigation!");
+                }
+            }
+        }
+    }
+
+    private BookingsPanel findBookingsPanel(Container container) {
+        for (Component comp : container.getComponents()) {
+            if (comp instanceof BookingsPanel) {
+                return (BookingsPanel) comp;
+            }
+            if (comp instanceof Container) {
+                BookingsPanel result = findBookingsPanel((Container) comp);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+        return null;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        java.awt.Container parent = getParent();
+            java.awt.Container parent = getParent();
     
         if (parent != null && parent.getParent() != null) {
             java.awt.Container grandParent = parent.getParent();
             if (grandParent.getLayout() instanceof CardLayout) {
                 CardLayout cardLayout = (CardLayout) grandParent.getLayout();
-                cardLayout.show(grandParent, "bookingsPanel1");
+                cardLayout.show(grandParent, "bookingsPanell1");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed

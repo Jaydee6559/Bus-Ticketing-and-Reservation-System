@@ -197,40 +197,50 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String email = jTextField1.getText();
-    String password = new String(jPasswordField1.getPassword());
-    String userType = jComboBox1.getSelectedItem().toString().toLowerCase();
-    
-    // USE CONTROLLER for login!
-    AuthController authController = new AuthController();
-    User user = authController.loginUser(email, password, userType);
-    
-    if (user != null) {
-        if (user.isVerified()) {
-            JOptionPane.showMessageDialog(this, "Login successful!");
-            if ("admin".equals(userType)) {
-                // Open admin frame
-                // AdminFrame adminFrame = new AdminFrame(user);
-                // adminFrame.setVisible(true);
-                JOptionPane.showMessageDialog(this, "Admin dashboard would open here");
-            } else {
+        String password = new String(jPasswordField1.getPassword());
+        String userType = jComboBox1.getSelectedItem().toString().toLowerCase();
 
-                // UserFrame userFrame = new UserFrame(user);
-                // userFrame.setVisible(true);
-                UserFrame userFrame = new UserFrame(user);
-                userFrame.setVisible(true);
-                userFrame.pack(); // Optional, makes sure the window sizes correctly
-                userFrame.setLocationRelativeTo(null); // Centers the window
-                this.dispose(); // Closes LoginFrame
+        // Hardcoded admin credentials
+        String adminUsername = "admin";
+        String adminPassword = "admin123";
+
+        if ("admin".equals(userType)) {
+            // ADMIN LOGIN (no database)
+            if (email.equalsIgnoreCase(adminUsername) && password.equals(adminPassword)) {
+                JOptionPane.showMessageDialog(this, "Admin login successful! Welcome Admin.");
+                AdminFrame adminFrame = new AdminFrame();
+                adminFrame.setVisible(true);
+                adminFrame.pack();
+                adminFrame.setLocationRelativeTo(null);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid admin username or password.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Please verify your email first. Check your email for OTP.");
-            OTPVerificationFrame otpFrame = new OTPVerificationFrame(email);
-            otpFrame.setVisible(true);
+            AuthController authController = new AuthController();
+            User user = authController.loginUser(email, password, userType);
+
+            if (user != null) {
+                if (user.isVerified()) {
+                    // Set user session
+                    util.UserSession.getInstance().setCurrentUser(user);
+
+                    JOptionPane.showMessageDialog(this, "Login successful! Welcome " + user.getFirstName() + "!");
+
+                    UserFrame userFrame = new UserFrame(user);
+                    userFrame.setVisible(true);
+                    userFrame.pack();
+                    userFrame.setLocationRelativeTo(null);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please verify your email first. Check your email for OTP.");
+                    OTPVerificationFrame otpFrame = new OTPVerificationFrame(email);
+                    otpFrame.setVisible(true);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid email or password.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "Invalid email or password");
-    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
