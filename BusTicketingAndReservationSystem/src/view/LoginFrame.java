@@ -173,9 +173,9 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("blablablabla");
+        jLabel7.setText("BusTicektingSystem");
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(280, 250, 80, 16);
+        jLabel7.setBounds(280, 250, 120, 16);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(466, 0, 530, 680);

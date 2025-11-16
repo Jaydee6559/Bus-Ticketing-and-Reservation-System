@@ -88,6 +88,7 @@ public class UserFrame extends javax.swing.JFrame {
         profilePanel1 = new view.ProfilePanel();
         profilePanel2 = new view.ProfilePanel();
         aboutPanel1 = new view.AboutPanel();
+        aboutPanel2 = new view.AboutPanel();
         contactPanel1 = new view.ContactPanel();
         contactPanel3 = new view.ContactPanel();
         bookingInfo1 = new view.BookingInfo();
@@ -378,11 +379,17 @@ public class UserFrame extends javax.swing.JFrame {
         aboutPanel1.setLayout(aboutPanel1Layout);
         aboutPanel1Layout.setHorizontalGroup(
             aboutPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aboutPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(aboutPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         aboutPanel1Layout.setVerticalGroup(
             aboutPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aboutPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(aboutPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         parentPanel.add(aboutPanel1, "aboutPanel1");
@@ -553,6 +560,7 @@ public class UserFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aboutBtn;
     private view.AboutPanel aboutPanel1;
+    private view.AboutPanel aboutPanel2;
     private view.BookingInfo bookingInfo1;
     private view.BookingInfo bookingInfo2;
     private javax.swing.JButton bookingsBtn;
