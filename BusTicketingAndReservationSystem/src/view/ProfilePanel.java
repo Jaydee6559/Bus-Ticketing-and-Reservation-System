@@ -603,13 +603,15 @@ public class ProfilePanel extends javax.swing.JPanel {
                 boolean success = paymentDAO.processPenaltyPayment(paymentId);
                 if (success) {
                     JOptionPane.showMessageDialog(this,
-                        "Penalty paid successfully!\nYour account status has been restored.",
+                        "Penalty paid successfully!\n\n" +
+                        "Your account status has been restored.\n" +
+                        "Your refund will be processed within 3-5 business days.",
                         "Payment Success",
                         JOptionPane.INFORMATION_MESSAGE);
-                    
+
                     loadPenaltyData();
                     loadUserData();
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(this,
                         "Failed to process penalty payment. Please try again.",
@@ -650,7 +652,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             
             if (receiptDetails != null) {
                 String receiptText = String.format(
-                    "?  BOOKING RECEIPT\n\n" +
+                    "  BOOKING RECEIPT\n\n" +
                     "Booking ID: %d\n" +
                     "Bus Plate: %s\n" +
                     "Route: %s → %s\n" +

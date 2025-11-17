@@ -54,7 +54,7 @@ public class BookingInfo extends javax.swing.JPanel {
         System.out.println("  Fare: " + fare);
         System.out.println("  Schedule ID: " + scheduleId);
         System.out.println("  User ID: " + userId);
-
+        initializeBookingInfo();
     }
 
     /**
@@ -138,22 +138,28 @@ public class BookingInfo extends javax.swing.JPanel {
         seatMap.put(jButton29, "E5");
         seatMap.put(jButton30, "F4");
         seatMap.put(jButton31, "F5");
+        
+        for (JButton btn : seatMap.keySet()) {
+            btn.setOpaque(true);
+            btn.setContentAreaFilled(true);
+            btn.setBorderPainted(false);
+            btn.setFocusPainted(false);
+        }
     }
 
 
     private void setupClassicBus() {
-        // Disable all seat buttons for Classic bus
-        disableAllSeatButtons();
 
         // Automatically assign random seats
         assignRandomSeats();
 
         // Update UI to show assigned seats with colors
-        updateSeatColors(); // Add this line!
+        updateSeatColors(); 
 
         // Update seat display in table
         updateSeatDisplay();
-
+        
+        disableAllSeatButtons();
         // Show info message
         JOptionPane.showMessageDialog(this, 
             "Classic Bus: " + passengerCount + " seats have been automatically assigned.\n" +
@@ -399,7 +405,6 @@ public class BookingInfo extends javax.swing.JPanel {
             jLabel20.setText(schedule.getArrivalPoint());       // Dropping Point
             jLabel21.setText(schedule.getBusType() + " Bus");   // Bus type
             updatePaymentInfo();
-            initializeBookingInfo();
         }
     }
 
@@ -515,9 +520,7 @@ public class BookingInfo extends javax.swing.JPanel {
         }
     }
 
-    /**
-     * Show important policies
-     */
+
    private void showImportantPolicies() {
         JOptionPane.showMessageDialog(this, 
             "   CANCELLATION & PENALTY POLICIES\n\n" +
@@ -528,19 +531,26 @@ public class BookingInfo extends javax.swing.JPanel {
             "  *LATE CANCELLATION (₱50 Penalty):\n" +
             "   • Unpaid bookings cancelled within 3 days of departure\n" +
             "   • ₱50 penalty fee applies\n" +
-            "   • Account will be blacklisted until penalty is paid\n\n" +
+            "   • Account will be blacklisted until penalty is paid\n" +
+            "   • Original payment will be REFUNDED after penalty payment\n\n" +
 
             "  *POST-PAYMENT CANCELLATION (₱100 Penalty):\n" +
             "   • Paid bookings cancelled 4+ days before departure\n" +
             "   • ₱100 penalty fee applies\n" +
-            "   • Account will be blacklisted until penalty is paid\n\n" +
+            "   • Account will be blacklisted until penalty is paid\n" +
+            "   • Original payment will be REFUNDED after penalty payment\n\n" +
 
             "  *CANCELLATION NOT ALLOWED:\n" +
             "   • Within 3 days of departure for completed payments\n" +
             "   • After departure time has passed\n\n" +
 
+            "  *REFUND POLICY:\n" +
+            "   • All eligible refunds are processed after penalty payment\n" +
+            "   • Refund amount = Original payment - Penalty fee\n" +
+            "   • Refunds are processed within 3-5 business days\n\n" +
+
             "  *IMPORTANT NOTES:\n" +
-            "   • Penalties must be paid to restore account status\n" +
+            "   • Penalties must be paid to restore account status and process refunds\n" +
             "   • Blacklisted accounts cannot make new bookings\n" +
             "   • Auto-cancellation occurs for unpaid bookings within 3 days\n" +
             "   • Please arrive at least 30 minutes before departure\n" +
@@ -963,10 +973,11 @@ public class BookingInfo extends javax.swing.JPanel {
         jLabel2.setBackground(new java.awt.Color(36, 106, 112));
         jLabel2.setOpaque(true);
 
-        jLabel3.setBackground(new java.awt.Color(204, 0, 51));
+        jLabel3.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 0, 0), 2));
         jLabel3.setOpaque(true);
 
-        jLabel4.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setOpaque(true);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
@@ -1044,43 +1055,40 @@ public class BookingInfo extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel8)
+                                .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(63, 63, 63)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel6))))
-                        .addGap(10, 10, 10))
+                                .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14))
+                .addGap(24, 24, 24))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(145, 145, 145)
                 .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)

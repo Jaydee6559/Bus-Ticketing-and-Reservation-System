@@ -81,6 +81,9 @@ public class DashboardPanel extends javax.swing.JPanel {
             List<Bus> availableBuses = busDAO.getAvailableBuses();
             jLabel15.setText(String.valueOf(availableBuses.size()));
             
+            List<Bus> unavailableBuses = busDAO.getUnavailableBuses();
+            jLabel17.setText(String.valueOf(unavailableBuses.size()));
+            
         } catch (Exception e) {
             System.err.println("Error loading bus stats: " + e.getMessage());
             e.printStackTrace();

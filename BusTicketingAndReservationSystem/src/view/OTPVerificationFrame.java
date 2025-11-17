@@ -84,7 +84,8 @@ public class OTPVerificationFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Email verified successfully! You can now login.");
             LoginFrame loginFrame = new LoginFrame();
             loginFrame.setVisible(true);
-            this.dispose();
+            loginFrame.pack();
+            loginFrame.setLocationRelativeTo(null);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid or expired OTP");
         }

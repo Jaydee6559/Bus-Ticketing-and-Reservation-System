@@ -75,19 +75,56 @@ public class BusDAO {
     
     public boolean addBus(String plateNumber, String busType) {
         String sql = "INSERT INTO buses (plate_number, bus_type, capacity, status) VALUES (?, ?, 31, 'available')";
-        
+
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             stmt.setString(1, plateNumber);
             stmt.setString(2, busType);
-            
+
             int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
-            
+
+            if (rowsAffected > 0) {
+                // Get the generated bus_id
+                ResultSet generatedKeys = stmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int busId = generatedKeys.getInt(1);
+                    // Create seats for this new bus
+                    createSeatsForBus(busId);
+                }
+                return true;
+            }
+            return false;
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    //create seats for a bus
+    private void createSeatsForBus(int busId) {
+        String[] seatCodes = {"A1", "A2", "A3", "B1", "B2", "B3", "B4", "B5", "C1", "C2", 
+                             "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "D6", "D7", 
+                             "D8", "E1", "E2", "E3", "E4", "E5", "F1", "F2", "F3", "F4", "F5"};
+
+        String insertSeatSQL = "INSERT INTO seats (bus_id, seat_code) VALUES (?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(insertSeatSQL)) {
+
+            for (String seatCode : seatCodes) {
+                stmt.setInt(1, busId);
+                stmt.setString(2, seatCode);
+                stmt.addBatch();
+            }
+
+            int[] results = stmt.executeBatch();
+            System.out.println("Created " + results.length + " seats for bus ID: " + busId);
+
+        } catch (SQLException e) {
+            System.err.println("Error creating seats for bus " + busId + ": " + e.getMessage());
+            e.printStackTrace();
         }
     }
     
